@@ -1,0 +1,63 @@
+.body {
+  padding: 1rem;
+}
+
+.landing > .entity > .entity-header {
+  background: #F5717C;
+}
+
+.staging > .entity > .entity-header {
+  background: #77B3FF;
+}
+
+.sor > .entity > .entity-header {
+  background: #FB9D46;
+}
+
+.mart > .entity > .entity-header {
+  background: #78B847;
+}
+
+.entity {
+  border-radius: 10px;
+  background: white;
+  width: 126.12px;
+  min-height: 100px;
+  box-shadow: 0 0 6px darkgray;
+}
+
+.entity:not(:first-child) {
+  margin-top: 3rem;
+}
+
+.entity-header {
+  border-radius: 10px 10px 0 0;
+  background: #F5717C;
+  color: white;
+  height: 36.7px;
+  font-weight: bold;
+}
+
+.entity-content {
+
+  padding: 0.5rem;
+
+}
+
+.entity-caption {
+  font-size: 14px;
+  padding: 0.25rem;
+}
+
+.line-hor {
+  width: 3rem;
+  height: 5px;
+}
+
+.line-hor-left {
+  margin-left: -3rem;
+}
+
+.line-hor-right {
+  margin-left: 126px;
+}

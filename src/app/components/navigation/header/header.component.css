@@ -1,0 +1,18 @@
+ mat-toolbar {
+    height: 3rem;
+    background: white
+}
+
+.menu-icon {
+  align-items: center;
+  vertical-align: middle;
+}
+
+.toggle-right {
+  transform: rotate(0deg);
+}
+
+
+.toggle-left {
+  transform: rotate(180deg);
+}

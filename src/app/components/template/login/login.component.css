@@ -1,0 +1,29 @@
+.body {
+  height: calc(100vh - 3rem);
+}
+
+.login-card {
+  padding: 1rem;
+}
+
+mat-card {
+  padding: 0rem !important;
+}
+
+mat-card-header {
+  background: whitesmoke;
+  padding: 0 !important;
+}
+
+mat-card-content {
+  padding: 0 !important;
+  margin: 0;
+}
+
+.input {
+  padding: 1rem !important;
+}
+
+.button-submit {
+  padding: 1rem;
+}

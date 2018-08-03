@@ -1,0 +1,30 @@
+<section class="body">
+  <div class="login-card" fxLayout fxLayoutWrap="true" fxLayoutAlign="end center">
+
+    <mat-card fxFlex="300px">
+      <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit(loginForm.value)" class="example-form" fxLayout="column">
+        <mat-card-header>
+          <h3>Login</h3>
+        </mat-card-header>
+        <mat-card-content>
+
+          <div class="input">
+            <app-input *ngFor="let logForm of objectKeys(loginFormConfig)" [parentForm]="loginForm"
+            [control]="logForm" [inputConfig]="loginFormConfig[logForm]">
+            </app-input>
+          </div>
+
+          <div class="button-submit" fxLayoutAlign="end">
+            <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
+          </div>
+
+          <div>
+            <mat-progress-bar mode="indeterminate" *ngIf="progressBar"></mat-progress-bar>
+          </div>
+
+        </mat-card-content>
+      </form>
+    </mat-card>
+
+  </div>
+</section>

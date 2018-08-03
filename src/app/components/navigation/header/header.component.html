@@ -1,0 +1,15 @@
+<mat-toolbar>
+  <div>
+    <button mat-icon-button (click)="onSideMenuToggle()" *ngIf="loginService.loggedIn">
+      <div class="menu-icon">
+        <img src="./assets/menu.svg" width="15" height="12" [class]="(menuSvg) ? 'toggle-right' : 'toggle-left'" />
+      </div>
+    </button>
+  </div>
+  <div>
+    HDFC DATA LINEAGE
+  </div>
+  <div class="header-menu" fxFlex fxLayout fxLayoutAlign="flex-end">
+    <app-header-menu></app-header-menu>
+  </div>
+</mat-toolbar>

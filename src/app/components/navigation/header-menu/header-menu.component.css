@@ -1,0 +1,25 @@
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a.mat-button {
+  padding: 0 0.25rem;
+}
+
+mat-menu.mat-menu-content {
+  padding: 0 !important;
+}
+
+.nav-caption {
+  padding: 0.25rem;
+}
+
+.menu-active {
+  color: darkgray;
+}
+
+.user-details {
+  padding: 0.25rem;
+}

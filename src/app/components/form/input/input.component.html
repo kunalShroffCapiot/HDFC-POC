@@ -1,0 +1,18 @@
+<div [formGroup]="parentForm">
+  <mat-form-field class="example-full-width" fxFlex="100%">
+    <input
+      matInput
+      [formControlName]="inputConfig.name"
+      [type]="inputConfig.type"
+      [placeholder]="inputConfig.placeHolder"
+      autocomplete="off">
+    <mat-error *ngIf="parentForm.controls[inputConfig.name].hasError('required')">
+      {{ inputConfig.title }} is
+      <strong>Required</strong>!
+    </mat-error>
+    <mat-error *ngIf="parentForm.controls[inputConfig.name].hasError('pattern')">
+      {{ inputConfig.title }} must be
+      <strong>Valid</strong>!
+    </mat-error>
+  </mat-form-field>
+</div>

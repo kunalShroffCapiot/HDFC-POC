@@ -1,0 +1,14 @@
+<ul fxFlex fxLayout >
+  <li>
+    <a mat-button routerLink="/dashboard" routerLinkActive="menu-active" *ngIf="loginService.loggedIn">
+      <div fxLayout="row" class="user-details" fxLayoutAlign="">
+        <div fxLayoutAlign="center center">
+          <mat-icon><img src="./assets/user-pic.svg" /></mat-icon>
+        </div>
+        <div class="user-details" fxLayout="column" fxLayoutAlign="center">
+            <div>{{ userDetails!.name }}</div>
+          </div>
+      </div>
+    </a>
+  </li>
+</ul>

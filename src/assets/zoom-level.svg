@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 13">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #707070;
+      }
+
+      .cls-2, .cls-4 {
+        fill: none;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="zoom-level" transform="translate(-1221 -31)">
+    <g id="Rectangle_31" data-name="Rectangle 31" class="cls-1" transform="translate(1221 31)">
+      <rect class="cls-3" width="9" height="13" rx="2"/>
+      <rect class="cls-4" x="0.5" y="0.5" width="8" height="12" rx="1.5"/>
+    </g>
+    <line id="Line_44" data-name="Line 44" class="cls-2" y2="7" transform="translate(1225.5 34.5)"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+{
+  "name": "ng-core",
+  "version": "0.0.0",
+  "scripts": {
+    "start:server": "nodemon server.js"
+  },
+  "private": true,
+  "dependencies": {
+    "@auth0/angular-jwt": "^2.0.0",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "mongodb": "^2.2.36"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}
