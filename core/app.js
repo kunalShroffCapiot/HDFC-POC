@@ -31,7 +31,7 @@ app.use((req, res, next) => {
           attributes: [
             {
               id: 1,
-              name: "attribute 1",
+              name: "att 1",
               relation: []
             }
           ]
@@ -42,12 +42,12 @@ app.use((req, res, next) => {
           attributes: [
             {
               id: 1,
-              name: "attribute 1",
+              name: "att 1",
               relation: []
             },
             {
               id: 2,
-              name: "attribute 2",
+              name: "att 2",
               relation: []
             }
           ]
@@ -64,19 +64,19 @@ app.use((req, res, next) => {
           attributes: [
             {
               id: 1,
-              name: "attribute 1",
+              name: "att 1",
               relation: [
                 {
                   stage: "landing",
-                  entity: "landing 1",
+                  entityId: "1",
                   attributeId: "1",
-                  attributeName: "attribute 1"
+                  attributeName: "att 1"
                 },
                 {
                   stage: "landing",
                   entity: "landing 2",
                   attributeId: "1",
-                  attributeName: "attribute 1"
+                  attributeName: "att 1"
                 }
               ]
             }
@@ -88,7 +88,7 @@ app.use((req, res, next) => {
           attributes: [
             {
               id: 1,
-              name: "attribute 1",
+              name: "att 1",
               relation: []
             }
           ]
@@ -99,13 +99,23 @@ app.use((req, res, next) => {
           attributes: [
             {
               id: 1,
-              name: "attribute 1",
+              name: "att 1",
+              relation: []
+            },
+            {
+              id: 2,
+              name: "att 2",
+              relation: []
+            },
+            {
+              id: 3,
+              name: "att 3",
               relation: [
                 {
                   stage: "landing",
                   entity: "landing 2",
-                  attributeId: "2",
-                  attributeName: "attribute 2"
+                  attributeId: "3",
+                  attributeName: "att 3"
                 }
               ]
             }
@@ -117,7 +127,7 @@ app.use((req, res, next) => {
           attributes: [
             {
               id: 1,
-              name: "attribute 1",
+              name: "att 1",
               relation: []
             }
           ]
@@ -134,55 +144,79 @@ app.use((req, res, next) => {
           attributes: [
             {
               id: 1,
-              name: "attribute 1",
+              name: "att 1",
               relation: [
                 {
                   stage: "staging",
                   entity: "staging 3",
                   attributeId: "1",
-                  attributeName: "attribute 1"
+                  attributeName: "att 1"
                 },
                 {
                   stage: "staging",
                   entity: "staging 4",
                   attributeId: "1",
-                  attributeName: "attribute 1"
+                  attributeName: "att 1"
                 },
                 {
                   stage: "staging",
                   entity: "staging 5",
                   attributeId: "1",
-                  attributeName: "attribute 1"
+                  attributeName: "att 1"
+                },
+                {
+                  stage: "staging",
+                  entity: "staging 5",
+                  attributeId: "2",
+                  attributeName: "att 2"
+                },
+                {
+                  stage: "staging",
+                  entity: "staging 5",
+                  attributeId: "3",
+                  attributeName: "att 3"
                 },
                 {
                   stage: "staging",
                   entity: "staging 6",
                   attributeId: "1",
-                  attributeName: "attribute 1"
+                  attributeName: "att 1"
                 },
                 {
                   stage: "mart",
                   entity: "mart 8",
                   attributeId: "1",
-                  attributeName: "attribute 1"
+                  attributeName: "att 1"
+                },
+                {
+                  stage: "mart",
+                  entity: "mart 8",
+                  attributeId: "2",
+                  attributeName: "att 2"
                 },
                 {
                   stage: "mart",
                   entity: "mart 9",
                   attributeId: "1",
-                  attributeName: "attribute 1"
+                  attributeName: "att 1"
                 },
                 {
                   stage: "mart",
                   entity: "mart 10",
                   attributeId: "1",
-                  attributeName: "attribute 1"
+                  attributeName: "att 1"
                 },
                 {
                   stage: "mart",
                   entity: "mart 11",
                   attributeId: "1",
-                  attributeName: "attribute 1"
+                  attributeName: "att 1"
+                },
+                {
+                  stage: "mart",
+                  entity: "mart 11",
+                  attributeId: "2",
+                  attributeName: "att 2"
                 }
               ]
             }
@@ -200,12 +234,12 @@ app.use((req, res, next) => {
           attributes: [
             {
               id: 1,
-              name: "attribute 1",
+              name: "att 1",
               relation: []
             },
             {
               id: 2,
-              name: "attribute 2",
+              name: "att 2",
               relation: []
             }          ]
         },
@@ -215,7 +249,7 @@ app.use((req, res, next) => {
           attributes: [
             {
               id: 1,
-              name: "attribute 1",
+              name: "att 1",
               relation: []
             }
           ]
@@ -226,7 +260,7 @@ app.use((req, res, next) => {
           attributes: [
             {
               id: 1,
-              name: "attribute 1",
+              name: "att 1",
               relation: []
             }
           ]
@@ -237,12 +271,12 @@ app.use((req, res, next) => {
           attributes: [
             {
               id: 1,
-              name: "attribute 1",
+              name: "att 1",
               relation: []
             },
             {
               id: 2,
-              name: "attribute 2",
+              name: "att 2",
               relation: []
             }
           ]

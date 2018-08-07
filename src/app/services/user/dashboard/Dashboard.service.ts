@@ -20,25 +20,25 @@ export class DashboardService {
       'filter=%7B%22domain%22:%22HDFC-DATA-LINEAGE%22%7D')
       .subscribe(response => {
 
-        console.log(response);
+        // console.log(response);
 
         const testStage: Array<Stage> = new Array<Stage>();
 
-        let counter = 0;
+        // let counter = 0;
         response.forEach(entity => {
 
           if (entity.name.indexOf('entity') >= 0) {
 
             const definition = JSON.parse(entity.definition);
 
-            console.log(definition);
+            // console.log(definition);
 
-            if ( definition.indexOf('stage') >= 0 ) {
+            /* if ( definition.indexOf('stage') >= 0 ) {
               testStage[counter].id = entity._id;
               testStage[counter].stage = 'landing';
 
               counter ++;
-            }
+            }*/
 
 
           }
@@ -46,7 +46,7 @@ export class DashboardService {
 
         });
 
-        console.log(testStage);
+        // console.log(testStage);
 
       });
   }

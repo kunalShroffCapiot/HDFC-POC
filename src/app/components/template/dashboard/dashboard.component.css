@@ -49,15 +49,43 @@
   padding: 0.25rem;
 }
 
+.attribute:not(:first-child) {
+  margin-top: 1rem;
+}
+
+.attribute:last-child {
+  padding-bottom: 1rem;
+}
+
+.line {
+  padding: 0 !important;
+  position: relative;
+}
+
 .line-hor {
   width: 3rem;
   height: 5px;
 }
 
+.align-line {
+  margin-top: -1rem;
+}
+
 .line-hor-left {
-  margin-left: -3rem;
+  margin-left: -3.5rem;
 }
 
 .line-hor-right {
-  margin-left: 126px;
+  margin-left: 7.5rem;
 }
+
+
+
+
+
+
+
+
+
+
+
