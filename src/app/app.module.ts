@@ -27,6 +27,7 @@ import { LoginComponent } from './components/template/login/login.component';
 import { LoginService } from './services/user/login/Login.service';
 import { DashboardService } from './services/user/dashboard/Dashboard.service';
 import { GlobalErrorHandler } from './services/common/errorHandler/GlobalErrorHandler.service';
+import { SideDrawerService } from './services/common/sideDrawer/SideDrawer.service';
 
 export function tokenGetter() {
   return localStorage.getItem('ba-rToken');
@@ -62,6 +63,7 @@ export function tokenGetter() {
     AuthGuard,
     AntiAuthGuard,
     DashboardService,
+    SideDrawerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CustomInterceptor,

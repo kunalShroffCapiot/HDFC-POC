@@ -1,6 +1,6 @@
 <mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer opened=false class="example-sidenav" mode="side">
-   <!--[opened]="loginService.loggedIn"-->
+  <mat-drawer #drawer [opened]="loginService.loggedIn" class="example-sidenav" mode="side">
+
 
    <app-side-drawer></app-side-drawer>
   </mat-drawer>
