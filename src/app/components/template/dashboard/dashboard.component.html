@@ -2,33 +2,41 @@
 
   <div fxFlex fxFlexLayout="row" fxLayoutAlign="center start" fxLayoutGap="6rem">
 
-  <div *ngFor="let stage of generateEntity" [ngClass]="stage.stage">
+    <div *ngFor="let stage of stage">
 
-    <div *ngFor="let entity of stage.entity" class="entity" (click)="getCoordinates($event)" id="{{ entity.id }}">
-      <div class="entity-header" fxLayoutAlign="center center">{{ entity.name }}</div>
-      <div class="entity-content" fxLayout="column">
+      <div fxLayout="row">
+
+        <div [ngClass]="stage.stage">
+
+          <div *ngFor="let entity of stage.entity" class="entity" (click)="getCoordinates($event)" id="{{ entity.id }}">
+            <div class="entity-header" fxLayoutAlign="center center">{{ entity.name }}</div>
+            <div class="entity-content" fxLayout="column">
 
 
-        <div class="attribute" *ngFor="let attribute of entity.attr">
-          <div class="entity-caption">
-            {{ attribute.name }}
-          </div>
-          <div fxLayout="row" class="align-line">
-            <div fxFlex fxLayoutAlign='start' *ngIf="stage.stage !== 'landing'">
-              <div class="line-hor line-hor-left" style="background: #77B3FF;" *ngIf="attribute.relLeft">&nbsp;</div>
+              <div class="attribute" *ngFor="let attribute of entity.attr">
+                <div class="entity-caption">
+                  {{ attribute.name }}
+                </div>
+                <div fxLayout="row" class="align-line">
+                  <div fxFlex fxLayoutAlign='start' *ngIf="stage.stage !== 'landing'">
+                    <div class="line-hor line-hor-left" style="background: #77B3FF;" *ngIf="attribute.relLeft">&nbsp;</div>
+                  </div>
+                  <div fxFlex fxLayoutAlign='end' *ngIf="stage.stage !== 'mart'">
+                    <div class="line-hor line-hor-right" style="background: #77B3FF;" *ngIf="attribute.relRight">&nbsp;</div>
+                  </div>
+                </div>
+              </div>
+
             </div>
-            <div fxFlex fxLayoutAlign='end' *ngIf="stage.stage !== 'mart'">
-              <div class="line-hor line-hor-right" style="background: #77B3FF;" *ngIf="attribute.relRight">&nbsp;</div>
-            </div>
+
           </div>
+
         </div>
 
+        <div class="line-ver" style="background: #77B3FF;" *ngIf="stage.stage !== 'mart'">&nbsp;</div>
       </div>
 
     </div>
-
-
-  </div>
 
   </div>
 
