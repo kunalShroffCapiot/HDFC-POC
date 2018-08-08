@@ -19,10 +19,10 @@
                 </div>
                 <div fxLayout="row" class="align-line">
                   <div fxFlex fxLayoutAlign='start' *ngIf="stage.stage !== 'landing'">
-                    <div class="line-hor line-hor-left" style="background: #77B3FF;" *ngIf="attribute.relLeft">&nbsp;</div>
+                    <div id="attr_left_{{entity.id + '_' + attribute.id }}" class="line-hor line-hor-left" style="background: #77B3FF;">&nbsp;</div>
                   </div>
                   <div fxFlex fxLayoutAlign='end' *ngIf="stage.stage !== 'mart'">
-                    <div class="line-hor line-hor-right" style="background: #77B3FF;" *ngIf="attribute.relRight">&nbsp;</div>
+                    <div id="attr_right_{{entity.id + '_' + attribute.id }}" class="line-hor line-hor-right" style="background: #77B3FF;">&nbsp;</div>
                   </div>
                 </div>
               </div>
