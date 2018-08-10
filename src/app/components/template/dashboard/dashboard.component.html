@@ -1,5 +1,9 @@
 <section class="body">
 
+    <svg xmlns="http://www.w3.org/2000/svg" class="chart__content">
+      <path class="chart__line" d="M100,100 L1000,100 L100,400 L200,400"></path>
+    </svg>
+
   <div fxFlex fxFlexLayout="row" fxLayoutAlign="center start" fxLayoutGap="6rem">
 
     <div *ngFor="let stage of stage">
@@ -19,10 +23,10 @@
                 </div>
                 <div fxLayout="row" class="align-line">
                   <div fxFlex fxLayoutAlign='start' *ngIf="stage.stage !== 'landing'">
-                    <div id="attr_left_{{entity.id + '_' + attribute.id }}" class="line-hor line-hor-left" style="background: #77B3FF;">&nbsp;</div>
+                    <div id="attr_left_{{entity.id + '_' + attribute.id }}" class="line-hor line-hor-left" style="background: #77B3FF; display: none;">&nbsp;</div>
                   </div>
                   <div fxFlex fxLayoutAlign='end' *ngIf="stage.stage !== 'mart'">
-                    <div id="attr_right_{{entity.id + '_' + attribute.id }}" class="line-hor line-hor-right" style="background: #77B3FF;">&nbsp;</div>
+                    <div id="attr_right_{{entity.id + '_' + attribute.id }}" class="line-hor line-hor-right" style="background: #77B3FF; display: none;">&nbsp;</div>
                   </div>
                 </div>
               </div>
@@ -33,7 +37,12 @@
 
         </div>
 
-        <div class="line-ver" style="background: #77B3FF;" *ngIf="stage.stage !== 'mart'">&nbsp;</div>
+        <div class="line-ver">
+
+          <div class="line-ver-ele" style="background: #77B3FF; display: none;" *ngIf="stage.stage !== 'mart'">&nbsp;</div>
+
+        </div>
+
       </div>
 
     </div>

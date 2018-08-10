@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { DashboardService } from '../../../services/user/dashboard/Dashboard.service';
 import { Entity } from '../../../models/data/Entity';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,8 @@ import { startTimeRange } from '../../../../../node_modules/@angular/core/src/pr
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  @ViewChild('svg') svg: ElementRef;
 
   // entityData: Array<Entity> = new Array<Entity>();
   entitySub = new Subscription();
@@ -479,6 +481,10 @@ export class DashboardComponent implements OnInit {
   constructor(private elRef: ElementRef, private dashboardService: DashboardService, private sideDrawerService: SideDrawerService) { }
 
   ngOnInit() {
+
+    console.log(this.svg);
+
+
     this.dashboardService.getEntity();
     this.sideDrawerService.getSelectEntity()
       .subscribe(selectedEntity => {
@@ -514,6 +520,16 @@ export class DashboardComponent implements OnInit {
         });
       });
     });
+
+    const newLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    newLine.setAttribute('id', 'line2');
+    newLine.setAttribute('x1', '0');
+    newLine.setAttribute('y1', '0');
+    newLine.setAttribute('x2', '300');
+    newLine.setAttribute('y2', '300');
+    newLine.setAttribute('stroke', 'black');
+    this.svg.nativeElement.append(newLine);
+
   }
 
   createRelation(attr) {

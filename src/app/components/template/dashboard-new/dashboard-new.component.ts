@@ -1,12 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { DashboardService } from '../../../services/user/dashboard/Dashboard.service';
+import { Entity } from '../../../models/data/Entity';
+import { Subscription } from 'rxjs';
 import { SideDrawerService } from '../../../services/common/sideDrawer/SideDrawer.service';
+import { startTimeRange } from '../../../../../node_modules/@angular/core/src/profile/wtf_impl';
 
 @Component({
-  selector: 'app-side-drawer',
-  templateUrl: './side-drawer.component.html',
-  styleUrls: ['./side-drawer.component.css']
+  selector: 'app-dashboard-new',
+  templateUrl: './dashboard-new.component.html',
+  styleUrls: ['./dashboard-new.component.css']
 })
-export class SideDrawerComponent implements OnInit {
+export class DashboardNewComponent implements OnInit {
+
+  @ViewChild('svg') svg: ElementRef;
+
+  // entityData: Array<Entity> = new Array<Entity>();
+  entitySub = new Subscription();
 
 
   stage = [
@@ -369,14 +378,34 @@ export class SideDrawerComponent implements OnInit {
     }
   ];
 
-  constructor( private sideDrawerService: SideDrawerService ) { }
+  generateEntity: any;
 
-  ngOnInit() { }
 
-  selectEntity(id, entity) {
-    if (id.srcElement.checked === true) {
-      this.sideDrawerService.selectEntity(entity);
-    }
+  constructor(private elRef: ElementRef, private dashboardService: DashboardService, private sideDrawerService: SideDrawerService) { }
+
+  ngOnInit() {
+
+    this.dashboardService.getEntity();
+    this.sideDrawerService.getSelectEntity()
+      .subscribe(selectedEntity => {
+
+        this.generateEnt(selectedEntity);
+
+      });
+  }
+
+  generateEnt(ent: any) {
+    this.generateEntity = [
+      {
+        stage: ent.stage,
+        entity: [
+          ent
+        ]
+      }
+    ];
+
+    (window as any).genRelation(this.stage, ent);
+
   }
 
 }
