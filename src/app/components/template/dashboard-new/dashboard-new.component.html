@@ -1,7 +1,7 @@
 <section class="body">
 
 
-  <div class="wrapper-1" id="wrapper_1">
+  <div class="wrapper-1" #wrapper_1>
 
     <!--<svg min-height="auto" min-width="96" style="position: absolute;">
       <line x1="183" y1="120" x2="326" y2="120" style="stroke:rgb(255,0,0);stroke-width:2" />
@@ -13,7 +13,7 @@
 
     <div fxFlex fxFlexLayout="row" fxLayoutAlign="start start" fxLayoutGap="6rem" class="wrapper-2">
 
-      <div *ngFor="let stage of stage">
+      <div *ngFor="let stage of generateEntity">
 
         <div fxLayout="row">
 
@@ -24,8 +24,8 @@
               <div class="entity-content" fxLayout="column">
 
 
-                <div class="attribute" *ngFor="let attribute of entity.attr">
-                  <div id="attr_{{ entity.id + '_' + attribute.id}}" class="entity-caption">
+                <div class="attribute" *ngFor="let attribute of entity.attr" (click)="callRenderEntity(stage.stage, entity, attribute.id)" style="cursor: pointer;">
+                  <div id="attr_{{ entity.id + '_' + attribute.id}}" #attributes class="entity-caption">
                     {{ attribute.name }}
                   </div>
                 </div>

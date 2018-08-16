@@ -29,6 +29,7 @@ import { DashboardService } from './services/user/dashboard/Dashboard.service';
 import { GlobalErrorHandler } from './services/common/errorHandler/GlobalErrorHandler.service';
 import { SideDrawerService } from './services/common/sideDrawer/SideDrawer.service';
 import { DashboardNewComponent } from './components/template/dashboard-new/dashboard-new.component';
+import { EntityService } from './services/entity/Entity.service';
 
 export function tokenGetter() {
   return localStorage.getItem('ba-rToken');
@@ -64,6 +65,7 @@ export function tokenGetter() {
     LoginService,
     AuthGuard,
     AntiAuthGuard,
+    EntityService,
     DashboardService,
     SideDrawerService,
     {

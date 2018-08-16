@@ -1,24 +1,22 @@
 export class Attribute {
   id: string;
   name: string;
-  relation: [
+  relationOut?: [
     {
       stage: string,
-      entity: string,
+      entityId: string,
       attributeId: string,
-      attributeName: string
     }
   ];
 
   constructor () {
     this.id = null;
     this.name = null;
-    this.relation = [
+    this.relationOut = [
       {
         stage: null,
-        entity: null,
+        entityId: null,
         attributeId: null,
-        attributeName: null
       }
     ];
   }

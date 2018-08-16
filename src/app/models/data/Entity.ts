@@ -1,12 +1,14 @@
-import { Attribute } from '../../../../node_modules/@angular/compiler';
+import { Attribute } from './Attribute';
 
 export class Entity {
     id: string;
+    stage: string;
     name: string;
-    attributes: Array<Attribute>;
+    attr: Array<Attribute>;
 
     constructor () {
       this.id = null;
+      this.stage = null;
       this.name = null;
     }
 }

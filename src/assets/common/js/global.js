@@ -21,9 +21,9 @@ function genRelation(data, entity) {
 
       if ((entity.stage == 'staging' && rel.stage == 'landing') || (entity.stage == 'sor' && rel.stage == 'staging') || entity.stage == 'mart' && rel.stage == 'sor') {
         startDivX = document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetLeft - 10;
-        startDivY = document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetTop + 78;
+        startDivY = document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetTop + 46;
         endDivX = document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetLeft + 115;
-        endDivY = document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetTop + 78;
+        endDivY = document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetTop + 46;
 
 
         if (document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetTop ===
@@ -46,9 +46,9 @@ function genRelation(data, entity) {
 
       } else if ((entity.stage == 'landing' && rel.stage == 'staging') || (entity.stage == 'staging' && rel.stage == 'sor') || entity.stage == 'sor' && rel.stage == 'mart') {
         startDivX = document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetLeft + 120;
-        startDivY = document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetTop + 78;
+        startDivY = document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetTop + 46;
         endDivX = document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetLeft - 10;
-        endDivY = document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetTop + 78;
+        endDivY = document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetTop + 46;
 
         if (document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetTop ===
           document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetTop) {
@@ -101,9 +101,9 @@ function checkRelation(entityId, attributeId) {
 
             if ((entity.stage == 'staging' && rel.stage == 'landing') || (entity.stage == 'sor' && rel.stage == 'staging') || entity.stage == 'mart' && rel.stage == 'sor') {
               startDivX = document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetLeft - 10;
-              startDivY = document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetTop + 78;
+              startDivY = document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetTop + 46;
               endDivX = document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetLeft + 115;
-              endDivY = document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetTop + 78;
+              endDivY = document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetTop + 46;
 
               if (document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetTop ===
                 document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetTop) {
@@ -125,9 +125,9 @@ function checkRelation(entityId, attributeId) {
 
             } else if ((entity.stage == 'landing' && rel.stage == 'staging') || (entity.stage == 'staging' && rel.stage == 'sor') || entity.stage == 'sor' && rel.stage == 'mart') {
               startDivX = document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetLeft + 120;
-              startDivY = document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetTop + 78;
+              startDivY = document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetTop + 46;
               endDivX = document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetLeft - 10;
-              endDivY = document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetTop + 78;
+              endDivY = document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetTop + 46;
 
               if (document.getElementById('attr_' + entity.id + '_' + attribute.id).offsetTop ===
                 document.getElementById('attr_' + rel.entityId + '_' + rel.attributeId).offsetTop) {
