@@ -13,6 +13,7 @@ export class EntityService {
 
     this.stage = [
       {
+        index: 1,
         stage: 'landing',
         entity: [
           {
@@ -45,6 +46,7 @@ export class EntityService {
         ]
       },
       {
+        index: 2,
         stage: 'staging',
         entity: [
           {
@@ -120,6 +122,7 @@ export class EntityService {
         ]
       },
       {
+        index: 3,
         stage: 'sor',
         entity: [
           {
@@ -217,6 +220,7 @@ export class EntityService {
         ]
       },
       {
+        index: 4,
         stage: 'mart',
         entity: [
           {

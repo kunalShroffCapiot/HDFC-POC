@@ -1,16 +1,8 @@
-import {
-  Component,
-  OnInit,
-  ElementRef,
-  ViewChild,
-  ViewChildren
-} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewChildren } from '@angular/core';
 import { DashboardService } from '../../../services/user/dashboard/Dashboard.service';
-import { Entity } from '../../../models/data/Entity';
 import { Subscription } from 'rxjs';
 import { SideDrawerService } from '../../../services/common/sideDrawer/SideDrawer.service';
 import { EntityService } from '../../../services/entity/Entity.service';
-
 import * as _ from 'lodash';
 
 @Component({
@@ -49,60 +41,56 @@ export class DashboardNewComponent implements OnInit {
 
   generateEnt(ent: any) {
 
+    this.wrapper_1.nativeElement.innerHTML = '';
+
     let selStage: any;
+    let selStageIndex: number = null;
+
+    this.generateEntity = [
+      {
+        index: 1,
+        stage: 'landing',
+        entity: []
+      },
+      {
+        index: 2,
+        stage: 'staging',
+        entity: []
+      },
+      {
+        index: 3,
+        stage: 'sor',
+        entity: []
+      },
+      {
+        index: 4,
+        stage: 'mart',
+        entity: []
+      }
+    ];
 
     this.stage.forEach(s => {
       if (s.entity.findIndex(en => en.id === ent.id) >= 0) {
         selStage = s;
+        if (s.stage === 'landing') { selStageIndex = 0; }
+        else if (s.stage === 'staging') { selStageIndex = 1; }
+        else if (s.stage === 'sor') { selStageIndex = 2; }
+        else if (s.stage === 'mart') { selStageIndex = 3; }
       }
     });
 
-    this.generateEntity = [];
+    this.generateEntity[selStageIndex] = {
+      index: selStageIndex,
+      stage: selStage.stage,
+      entity: [ent]
+    };
 
-    this.generateEntity = [
-      {
-        stage: selStage.stage,
-        entity: [ent]
-      }
-    ];
   }
 
   callRenderEntity(stageName, entity, attributeId) {
     this.renderEntity(stageName, entity, attributeId).then(
       (val) => {
-
-        const newEnt = [];
-
-        this.generateEntity.forEach(x => {
-          if (x.stage === 'landing') {
-            newEnt[0] = x;
-          }
-        });
-
-        this.generateEntity.forEach(x => {
-          if (x.stage === 'staging') {
-            newEnt[1] = x;
-          }
-        });
-
-        this.generateEntity.forEach(x => {
-          if (x.stage === 'sor') {
-            newEnt[2] = x;
-          }
-        });
-
-        this.generateEntity.forEach(x => {
-          if (x.stage === 'mart') {
-            newEnt[3] = x;
-          }
-        });
-
-        this.generateEntity = newEnt;
-
         this.generateRelation(entity);
-
-        return false;
-        // this.generateRelation(entity);
       }
     );
   }
