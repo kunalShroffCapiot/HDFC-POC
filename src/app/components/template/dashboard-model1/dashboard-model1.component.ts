@@ -33,7 +33,14 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
   ) { }
 
   ngOnInit() {
-    this.generateEntity = this.entityService.getEntity();
+    this.entityService.getEntity().subscribe(res => {
+      debugger;
+      this.generateEntity = res;
+    }, err => {
+      console.log("error has occurred" + err);
+    })
+
+    // this.generateEntity = this.entityService.getEntity();
 
     this.dashboardService.getEntity();
     this.sideDrawerService.getSelectEntity().subscribe(selectedEntity => {
@@ -89,7 +96,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
     });
     this.entities['_results'][index].nativeElement.hidden = false;
 
-    if ( entity.attr[entity.attr.findIndex(x => x.id === attrId)].relationOut.length > 0 ) {
+    if (entity.attr[entity.attr.findIndex(x => x.id === attrId)].relationOut.length > 0) {
       entity.attr[
         entity.attr.findIndex(x => x.id === attrId)
       ].relationOut.forEach(x => {

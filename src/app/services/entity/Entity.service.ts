@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Entity } from '../../models/data/Entity';
+import * as _ from 'lodash';
 
 @Injectable()
 export class EntityService {
 
   public stage: any; // Array<Entity> = new Array<Entity>();
-
+finalData=[];
   constructor(private http: HttpClient, private router: Router) {
 
     this.stage = [
@@ -286,10 +287,160 @@ export class EntityService {
       }
     ];
   }
+ getData(){
+    return this.http.get('http://sandbox.odp.capiot.com:32001/api/a/sm/service?page=1&count=-1&' +
+      'filter=%7B%22domain%22:%22HDFC-DATA-LINEAGE%22%7D');
+  }
+
+  getEntity():Observable<any> {
+    //return (this.stage);
+ return new Observable((observer) => {
+    
+    // observable execution
+         this.getData().subscribe(res => {
+      //debugger;
+      let actualData: any;
+      actualData = res;
+      let finalData = [];
+      if (actualData != null) {
+        actualData.forEach(element => {
+          if (element.name.indexOf("entity") >= 0) {
+            let stageName = "";
+            let stageIndex = -1;
+            let idx = 0;
+            element.attributeList.forEach(element2 => {
+              if (element2.name.indexOf("stage") >= 0) {
+                stageName = element2.name.substring(element2.name.indexOf("-") + 1);
+                stageIndex = idx;
+              }
+              idx = idx + 1;
+            });
+            element.attributeList.splice(stageIndex, 1);
+            let data = {
+              id: element._id,
+              name: element.name,
+              stage: stageName,
+              attr: element.attributeList.map(r => {
+                return { id: r._id, name: r.name, relationIn: JSON.parse(element.definition), relationOut: [] }
+              })
 
 
-  getEntity() {
-    return (this.stage);
+            }
+            finalData.push(data);
+          }
+        });
+       this.finalData=finalData;
+      observer.next(  this.formatFinalData(this.finalData));
+      observer.complete();
+      }
+
+
+
+    }, err => {
+      debugger;
+
+      console.log(err);
+      observer.complete();
+    });
+   
+   
+    
+});
+  
+
+  }
+
+   formatFinalData(finalData): any {
+    // debugger;
+    finalData.forEach(element => {
+      element.attr.forEach(element2 => {
+        let isExists = false;
+        for (var key in element2.relationIn) {
+          if (element2.relationIn.hasOwnProperty(key)) {
+            var element3 = element2.relationIn[key];
+            //  debugger;
+            if (element3.properties != null && element3.properties.name != null) {
+              // debugger;
+              if (element3.properties.name == element2.name && element3.properties.relatedSearchField != null) {
+                isExists = true;
+                let data = {
+                  stage: element.stage,
+                  entityId: element.id,
+                  attributeId: element2.id
+                }
+                // let r=_.filter(finalData,rr=>{
+                // return _.filter(rr.attr,rr2=>{
+                //     return rr.id=element3.properties.relatedTo && rr2.name==element3.properties.name
+                //   })
+                // })
+                // debugger;
+                this.updatefinalData(element3.properties.relatedTo, element3.properties.relatedSearchField, data)
+                // debugger;
+                return;
+              }
+
+            }
+          }
+
+        }
+
+      });
+    });
+
+   
+    this.finalData = _.chain(this.finalData).groupBy("stage").map(function (v, i) {
+      return {
+        stage: i,
+        entity: _.map(v, x => {
+          return { id: x.id, name: x.name, attr: x.attr }
+
+        })
+
+      }
+    }).value();
+debugger;
+    let landing=_.filter(this.finalData,x=>{
+     return x.stage=="landing";
+    })[0];
+
+    let staging=_.filter(this.finalData,x=>{
+     return x.stage=="staging";
+    })[0];
+
+    let sor=_.filter(this.finalData,x=>{
+     return x.stage=="sor";
+    })[0];
+
+    let mart=_.filter(this.finalData,x=>{
+      return x.stage=="mart";
+    })[0];
+
+    this.finalData=[];
+    this.finalData.push(landing);
+    this.finalData.push(staging);
+    this.finalData.push(sor);
+    this.finalData.push(mart);
+
+    return this.finalData;
+
+   }
+
+     updatefinalData(entityId, attributeName, dataTOpushed) {
+    // debugger;
+    let entity = _.filter(this.finalData, r => {
+      return r.id == entityId
+    });
+
+    if (entity != null && entity.length > 0) {
+      let attribute = _.filter(entity[0].attr, r => {
+        return r.name == attributeName
+      });
+
+      if (attribute != null && attribute.length > 0) {
+        attribute[0].relationOut.push(dataTOpushed);
+      }
+    }
+
   }
 
 }

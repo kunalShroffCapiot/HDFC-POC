@@ -15,7 +15,7 @@ export class DashboardService {
 
   constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService) { }
 
-  getEntity() {
+  getEntity():any {
     this.http.get<any>('http://sandbox.odp.capiot.com:32001/api/a/sm/service?page=1&count=-1&' +
       'filter=%7B%22domain%22:%22HDFC-DATA-LINEAGE%22%7D')
       .subscribe(response => {

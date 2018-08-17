@@ -10,11 +10,16 @@ import { EntityService } from '../../../services/entity/Entity.service';
 export class SideDrawerComponent implements OnInit {
   stage: any;
 
-  constructor( private sideDrawerService: SideDrawerService, private entityService: EntityService ) { }
+  constructor(private sideDrawerService: SideDrawerService, private entityService: EntityService) { }
 
   ngOnInit() {
-
-    this.stage = this.entityService.getEntity();
+    this.entityService.getEntity().subscribe(res => {
+      debugger;
+      this.stage = res;
+    }, err => {
+      console.log("error has occurred" + err);
+    })
+    //this.stage = this.entityService.getEntity();
 
   }
 
