@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { SideDrawerService } from '../../../services/common/sideDrawer/SideDrawer.service';
 import { EntityService } from '../../../services/entity/Entity.service';
 import * as _ from 'lodash';
+import { sharedData } from '../../../services/shared/sharedData';
 
 @Component({
   selector: 'app-dashboard-model1',
@@ -29,23 +30,39 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
     private elRef: ElementRef,
     private dashboardService: DashboardService,
     private sideDrawerService: SideDrawerService,
-    private entityService: EntityService
+    private entityService: EntityService, private shared: sharedData
   ) { }
 
   ngOnInit() {
-    this.entityService.getEntity().subscribe(res => {
+
+    this.shared.track.subscribe(x => {
       debugger;
-      this.generateEntity = res;
-    }, err => {
-      console.log("error has occurred" + err);
-    })
+      this.generateEntity=[];
+      this.getData(x);
+    });
+    this.getData("Back");
 
-    // this.generateEntity = this.entityService.getEntity();
-
-    this.dashboardService.getEntity();
     this.sideDrawerService.getSelectEntity().subscribe(selectedEntity => {
       this.generateEnt(selectedEntity);
     });
+  }
+
+  getData(mode) {
+    if (mode == 'Back') {
+      this.entityService.getEntity().subscribe(res => {
+        // debugger;
+        this.generateEntity = res;
+      }, err => {
+        console.log("error has occurred" + err);
+      })
+
+      // this.generateEntity = this.entityService.getEntity();
+
+      this.dashboardService.getEntity();
+    }
+    else {
+      this.generateEntity = this.entityService.getEntity_Old();
+    }
   }
 
   ngAfterContentInit() {

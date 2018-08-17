@@ -292,6 +292,10 @@ finalData=[];
       'filter=%7B%22domain%22:%22HDFC-DATA-LINEAGE%22%7D');
   }
 
+  getEntity_Old(){
+    return (this.stage);
+  }
+
   getEntity():Observable<any> {
     //return (this.stage);
  return new Observable((observer) => {
@@ -304,7 +308,8 @@ finalData=[];
       let finalData = [];
       if (actualData != null) {
         actualData.forEach(element => {
-          if (element.name.indexOf("entity") >= 0) {
+          // if (element.name.indexOf("entity") >= 0) {
+            if(true){
             let stageName = "";
             let stageIndex = -1;
             let idx = 0;
@@ -315,6 +320,9 @@ finalData=[];
               }
               idx = idx + 1;
             });
+            if(stageName==""){
+              return;
+            }
             element.attributeList.splice(stageIndex, 1);
             let data = {
               id: element._id,
@@ -398,7 +406,7 @@ finalData=[];
 
       }
     }).value();
-debugger;
+// debugger;
     let landing=_.filter(this.finalData,x=>{
      return x.stage=="landing";
     })[0];

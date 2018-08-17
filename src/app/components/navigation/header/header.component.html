@@ -9,6 +9,9 @@
   <div>
     HDFC DATA LINEAGE
   </div>
+  <div *ngIf="loginService.loggedIn" style="margin:10%"><button (click)="changeMode('Back')" *ngIf="showMode=='Demo'" class="mat-raised-button mat-primary">Back</button>
+    <button (click)="changeMode('Demo')" *ngIf="showMode=='Back'"  class="mat-raised-button mat-primary">Demo</button>
+  </div>
   <div class="header-menu" fxFlex fxLayout fxLayoutAlign="flex-end">
     <app-header-menu></app-header-menu>
   </div>

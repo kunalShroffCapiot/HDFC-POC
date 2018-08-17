@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SideDrawerService } from '../../../services/common/sideDrawer/SideDrawer.service';
 import { EntityService } from '../../../services/entity/Entity.service';
+import { sharedData } from '../../../services/shared/sharedData';
 
 @Component({
   selector: 'app-side-drawer',
@@ -10,19 +11,34 @@ import { EntityService } from '../../../services/entity/Entity.service';
 export class SideDrawerComponent implements OnInit {
   stage: any;
 
-  constructor(private sideDrawerService: SideDrawerService, private entityService: EntityService) { }
+  constructor(private sideDrawerService: SideDrawerService, private entityService: EntityService, private shared: sharedData) { }
 
   ngOnInit() {
-    this.entityService.getEntity().subscribe(res => {
+    this.shared.track.subscribe(x => {
       debugger;
-      this.stage = res;
-    }, err => {
-      console.log("error has occurred" + err);
-    })
+      this.stage=[];
+      this.getData(x);
+    });
+
+    this.getData("Back");
     //this.stage = this.entityService.getEntity();
 
   }
 
+  getData(mode) {
+    if (mode == 'Back') {
+      this.entityService.getEntity().subscribe(res => {
+        // debugger;
+        this.stage = res;
+      }, err => {
+        console.log("error has occurred" + err);
+      })
+    }
+    else {
+      this.stage = this.entityService.getEntity_Old();
+    }
+
+  }
   selectEntity(id, entity) {
     if (id.srcElement.checked === true) {
       this.sideDrawerService.selectEntity(entity);
