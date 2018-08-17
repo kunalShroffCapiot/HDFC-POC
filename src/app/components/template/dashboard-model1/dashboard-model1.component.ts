@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewChildren, AfterContentInit } from '@angular/core';
 import { DashboardService } from '../../../services/user/dashboard/Dashboard.service';
 import { Subscription } from 'rxjs';
 import { SideDrawerService } from '../../../services/common/sideDrawer/SideDrawer.service';
@@ -6,15 +6,17 @@ import { EntityService } from '../../../services/entity/Entity.service';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-dashboard-new',
-  templateUrl: './dashboard-new.component.html',
-  styleUrls: ['./dashboard-new.component.css']
+  selector: 'app-dashboard-model1',
+  templateUrl: './dashboard-model1.component.html',
+  styleUrls: ['./dashboard-model1.component.css']
 })
-export class DashboardNewComponent implements OnInit {
+export class DashboardModel1Component implements OnInit, AfterContentInit {
   @ViewChild('wrapper_1')
   wrapper_1: ElementRef;
   @ViewChildren('attributes')
   attributes: ElementRef;
+  @ViewChildren('entities')
+  entities: ElementRef;
 
   // entityData: Array<Entity> = new Array<Entity>();
   entitySub = new Subscription();
@@ -31,7 +33,7 @@ export class DashboardNewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stage = this.entityService.getEntity();
+    this.generateEntity = this.entityService.getEntity();
 
     this.dashboardService.getEntity();
     this.sideDrawerService.getSelectEntity().subscribe(selectedEntity => {
@@ -39,133 +41,59 @@ export class DashboardNewComponent implements OnInit {
     });
   }
 
+  ngAfterContentInit() {
+  }
+
   generateEnt(ent: any) {
 
     this.wrapper_1.nativeElement.innerHTML = '';
 
-    let selStage: any;
-    let selStageIndex: number = null;
-
-    this.generateEntity = [
-      {
-        index: 1,
-        stage: 'landing',
-        entity: []
-      },
-      {
-        index: 2,
-        stage: 'staging',
-        entity: []
-      },
-      {
-        index: 3,
-        stage: 'sor',
-        entity: []
-      },
-      {
-        index: 4,
-        stage: 'mart',
-        entity: []
-      }
-    ];
-
-    this.stage.forEach(s => {
-      if (s.entity.findIndex(en => en.id === ent.id) >= 0) {
-        selStage = s;
-        if (s.stage === 'landing') {
-          selStageIndex = 0;
-        } else if (s.stage === 'staging') {
-          selStageIndex = 1;
-        } else if (s.stage === 'sor') {
-          selStageIndex = 2;
-        } else if (s.stage === 'mart') {
-          selStageIndex = 3;
-        }
-      }
+    _.forEach(this.entities['_results'], x => {
+      x.nativeElement.hidden = true;
     });
 
-    this.generateEntity[selStageIndex] = {
-      index: selStageIndex,
-      stage: selStage.stage,
-      entity: [ent]
-    };
 
-  }
+    const index = _.findIndex(this.entities['_results'], x => {
+      return x.nativeElement.id === 'entity_' + ent.id;
+    });
 
-  callRenderEntity(stageName, entity, attributeId) {
-    this.renderEntity(stageName, entity, attributeId).then(
-      (val) => {
-        this.generateRelation(entity);
-      }
-    );
+    this.entities['_results'][index].nativeElement.hidden = false;
+
   }
 
   renderEntity(stageName, entity, attributeId) {
-    const p = new Promise((resolve, reject) => {
-      try {
-        if (this.generateEntity.findIndex(x => x.stage === stageName) === -1) {
-          this.generateEntity = [
-            {
-              stage: stageName,
-              entity: [entity]
+    if (
+      entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut
+        .length > 0
+    ) {
+      entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut.forEach(x => {
+
+        _.forEach(this.generateEntity, s => {
+          _.forEach(s.entity, e => {
+            if (x.entityId === e.id) {
+              this.putEntity(s.stage, e, x.attributeId);
             }
-          ];
-        }
-
-        if (
-          entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut
-            .length > 0
-        ) {
-          entity.attr[
-            entity.attr.findIndex(x => x.id === attributeId)
-          ].relationOut.forEach(x => {
-            this.stage.forEach(s => {
-              s.entity.forEach(e => {
-                if (x.entityId === e.id) {
-                  return this.putEntity(s.stage, e, x.attributeId);
-                }
-              });
-            });
           });
-        }
+        });
+      });
+    }
 
-        resolve(true);
-      } catch (Ex) {
-        reject(false);
-      }
-
-    });
-
-    return p;
+    this.generateRelation(entity);
 
   }
 
   putEntity(stageName, entity, attrId) {
-    if (this.generateEntity.findIndex(x => x.stage === stageName) === -1) {
-      this.generateEntity.push({
-        stage: stageName,
-        entity: [entity]
-      });
-    } else {
-      if (
-        this.generateEntity[
-          this.generateEntity.findIndex(x => x.stage === stageName)
-        ].entity.findIndex(x => x.id === entity.id) === -1
-      ) {
-        this.generateEntity[
-          this.generateEntity.findIndex(x => x.stage === stageName)
-        ].entity.push(entity);
-      }
-    }
 
-    if (
-      entity.attr[entity.attr.findIndex(x => x.id === attrId)].relationOut
-        .length > 0
-    ) {
+    const index = _.findIndex(this.entities['_results'], x => {
+      return x.nativeElement.id === 'entity_' + entity.id;
+    });
+    this.entities['_results'][index].nativeElement.hidden = false;
+
+    if ( entity.attr[entity.attr.findIndex(x => x.id === attrId)].relationOut.length > 0 ) {
       entity.attr[
         entity.attr.findIndex(x => x.id === attrId)
       ].relationOut.forEach(x => {
-        this.stage.forEach(s => {
+        this.generateEntity.forEach(s => {
           s.entity.forEach(e => {
             if (x.entityId === e.id) {
               this.putEntity(s.stage, e, x.attributeId);
@@ -239,6 +167,7 @@ export class DashboardNewComponent implements OnInit {
                   endDivY = element_to[0].nativeElement.offsetTop + 46;
 
                   if (startDivY === endDivY) {
+                    console.log(startDivX + ' - ' + startDivY + ' - ' + endDivX + ' - ' + endDivY);
                     this.wrapper_1.nativeElement.innerHTML +=
                       `
                     <svg height='100%' width='100%' style='position: absolute;'>

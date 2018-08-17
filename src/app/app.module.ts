@@ -30,6 +30,7 @@ import { GlobalErrorHandler } from './services/common/errorHandler/GlobalErrorHa
 import { SideDrawerService } from './services/common/sideDrawer/SideDrawer.service';
 import { DashboardNewComponent } from './components/template/dashboard-new/dashboard-new.component';
 import { EntityService } from './services/entity/Entity.service';
+import { DashboardModel1Component } from './components/template/dashboard-model1/dashboard-model1.component';
 
 export function tokenGetter() {
   return localStorage.getItem('ba-rToken');
@@ -45,7 +46,8 @@ export function tokenGetter() {
     HeaderMenuComponent,
     SideDrawerComponent,
     LoginComponent,
-    DashboardNewComponent
+    DashboardNewComponent,
+    DashboardModel1Component
   ],
   imports: [
     BrowserModule,
