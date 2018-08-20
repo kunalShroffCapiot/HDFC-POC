@@ -262,7 +262,13 @@ export class EntityService {
               {
                 id: '2',
                 name: 'Att 2',
-                relationOut: []
+                relationOut: [
+                  {
+                    stage: 'sor',
+                    entityId: '7',
+                    attributeId: '1'
+                  }
+                ]
               }
             ]
           },
