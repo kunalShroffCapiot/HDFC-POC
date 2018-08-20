@@ -263,7 +263,13 @@ finalData=[];
               {
                 id: '2',
                 name: 'Att 2',
-                relationOut: []
+                relationOut: [
+                   {
+                    stage: 'sor',
+                    entityId: '7',
+                    attributeId: '1'
+                  }
+                ]
               }
             ]
           },
@@ -302,7 +308,7 @@ finalData=[];
     
     // observable execution
          this.getData().subscribe(res => {
-      //debugger;
+      debugger;
       let actualData: any;
       actualData = res;
       let finalData = [];
@@ -329,7 +335,7 @@ finalData=[];
               name: element.name,
               stage: stageName,
               attr: element.attributeList.map(r => {
-                return { id: r._id, name: r.name, relationIn: JSON.parse(element.definition), relationOut: [] }
+                return { id: r._id, name: r.name, relationIn: JSON.parse(element.definition), relationOut: [],key:r.key }
               })
 
 
@@ -366,7 +372,7 @@ finalData=[];
         for (var key in element2.relationIn) {
           if (element2.relationIn.hasOwnProperty(key)) {
             var element3 = element2.relationIn[key];
-            //  debugger;
+              debugger;
             if (element3.properties != null && element3.properties.name != null) {
               // debugger;
               if (element3.properties.name == element2.name && element3.properties.relatedSearchField != null) {
@@ -441,7 +447,7 @@ finalData=[];
 
     if (entity != null && entity.length > 0) {
       let attribute = _.filter(entity[0].attr, r => {
-        return r.name == attributeName
+        return r.key == attributeName
       });
 
       if (attribute != null && attribute.length > 0) {

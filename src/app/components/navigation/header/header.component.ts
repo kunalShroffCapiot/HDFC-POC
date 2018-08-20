@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
     this.menuSvg = !this.menuSvg;
   }
   changeMode(mode) {
-    debugger;
+    // debugger;
     this.showMode = mode;
     this.shared.setMode(mode);
   }

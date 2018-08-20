@@ -15,8 +15,7 @@ export class SideDrawerComponent implements OnInit {
 
   ngOnInit() {
     this.shared.track.subscribe(x => {
-      debugger;
-      this.stage=[];
+      // this.stage=[];
       this.getData(x);
     });
 
@@ -28,7 +27,6 @@ export class SideDrawerComponent implements OnInit {
   getData(mode) {
     if (mode == 'Back') {
       this.entityService.getEntity().subscribe(res => {
-        // debugger;
         this.stage = res;
       }, err => {
         console.log("error has occurred" + err);

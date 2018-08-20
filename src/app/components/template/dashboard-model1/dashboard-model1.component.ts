@@ -36,7 +36,8 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
   ngOnInit() {
 
     this.shared.track.subscribe(x => {
-      debugger;
+      // debugger;
+      this.wrapper_1.nativeElement.innerHTML = '';
       this.generateEntity=[];
       this.getData(x);
     });
@@ -103,6 +104,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
     }
 
     this.generateRelation(entity);
+    console.log(this.generateEntity);
 
   }
 
