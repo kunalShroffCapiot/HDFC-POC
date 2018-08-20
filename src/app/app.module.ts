@@ -31,6 +31,7 @@ import { SideDrawerService } from './services/common/sideDrawer/SideDrawer.servi
 import { DashboardNewComponent } from './components/template/dashboard-new/dashboard-new.component';
 import { EntityService } from './services/entity/Entity.service';
 import { DashboardModel1Component } from './components/template/dashboard-model1/dashboard-model1.component';
+import {sharedData} from './services/shared/sharedData';
 
 export function tokenGetter() {
   return localStorage.getItem('ba-rToken');
@@ -69,6 +70,7 @@ export function tokenGetter() {
     AntiAuthGuard,
     EntityService,
     DashboardService,
+    sharedData,
     SideDrawerService,
     {
       provide: HTTP_INTERCEPTORS,
