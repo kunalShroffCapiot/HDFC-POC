@@ -193,10 +193,12 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   endDivY = element_to[0].nativeElement.offsetTop + 46;
 
                   if (startDivY === endDivY) {
-                    console.log(startDivX + ' - ' + startDivY + ' - ' + endDivX + ' - ' + endDivY);
                     this.wrapper_1.nativeElement.innerHTML +=
                       `
                     <svg height='100%' width='100%' style='position: absolute;'>
+                      <polygon points="` + endDivX + `,` + startDivY + ` ` + (endDivX + 15) +
+                                       `,` + (startDivY - 7) + ` ` + (endDivX + 15) + `,` + (startDivY + 7) +
+                                        `" style="fill:` + color + `;" />
                       <line x1='` +
                       startDivX +
                       `' y1='` +
@@ -207,13 +209,17 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                       endDivY +
                       `' style='stroke:` +
                       color +
-                      `;stroke-width:5' />
-                    </svg>
+                      `;stroke-width:3' />
+                      <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
+                      </svg>
                   `;
                   } else {
                     this.wrapper_1.nativeElement.innerHTML +=
                       `
                     <svg height='100%' width='100%' style='position: absolute;'>
+                      <polygon points="` + endDivX + `,` + endDivY + ` ` + (endDivX + 15) +
+                      `,` + (endDivY - 7) + ` ` + (endDivX + 15) + `,` + (endDivY + 7) +
+                      `" style="fill:` + color + `;" />
                       <line x1='` +
                       startDivX +
                       `' y1='` +
@@ -224,7 +230,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                       startDivY +
                       `' style='stroke:` +
                       color +
-                      `;stroke-width:5' />
+                      `;stroke-width:3' />
                       <line x1='` +
                       (endDivX + 64) +
                       `' y1='` +
@@ -235,7 +241,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                       endDivY +
                       `' style='stroke:` +
                       color +
-                      `;stroke-width:5' />
+                      `;stroke-width:3' />
                       <line x1='` +
                       (endDivX + 64) +
                       `' y1='` +
@@ -246,7 +252,8 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                       endDivY +
                       `' style='stroke:` +
                       color +
-                      `;stroke-width:5' />
+                      `;stroke-width:3' />
+                      <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
                     </svg>
                   `;
                   }
@@ -265,6 +272,9 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                     this.wrapper_1.nativeElement.innerHTML +=
                       `
                     <svg height='100%' width='100%' style='position: absolute;'>
+                      <polygon points="` + (endDivX - 15) + `,` + (endDivY - 7) + ` ` + endDivX +
+                      `,` + endDivY + ` ` + (endDivX - 15) + `,` + (endDivY + 7) +
+                      `" style="fill:` + color + `;" />
                       <line x1='` +
                       startDivX +
                       `' y1='` +
@@ -275,13 +285,17 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                       endDivY +
                       `' style='stroke:` +
                       color +
-                      `;stroke-width:5' />
+                      `;stroke-width:3' />
+                      <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
                     </svg>
                   `;
                   } else {
                     this.wrapper_1.nativeElement.innerHTML +=
                       `
                     <svg height='100%' width='100%' style='position: absolute;'>
+                      <polygon points="` + (endDivX - 15) + `,` + (endDivY - 7) + ` ` + endDivX +
+                      `,` + endDivY + ` ` + (endDivX - 15) + `,` + (endDivY + 7) +
+                      `" style="fill:` + color + `;" />
                       <line x1='` +
                       startDivX +
                       `' y1='` +
@@ -292,7 +306,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                       startDivY +
                       `' style='stroke:` +
                       color +
-                      `;stroke-width:5' />
+                      `;stroke-width:3' />
                       <line x1='` +
                       (endDivX - 64) +
                       `' y1='` +
@@ -303,7 +317,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                       endDivY +
                       `' style='stroke:` +
                       color +
-                      `;stroke-width:5' />
+                      `;stroke-width:3' />
                       <line x1='` +
                       (endDivX - 64) +
                       `' y1='` +
@@ -314,7 +328,8 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                       endDivY +
                       `' style='stroke:` +
                       color +
-                      `;stroke-width:5' />
+                      `;stroke-width:3' />
+                      <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
                     </svg>
                   `;
                   }
@@ -392,7 +407,11 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
               this.wrapper_1.nativeElement.innerHTML +=
                 `
               <svg height='100%' width='100%' style='position: absolute;'>
-                <line x1='` +
+                <polygon points="` + endDivX + `,` + startDivY + ` ` + (endDivX + 15) +
+                `,` + (startDivY - 7) + ` ` + (endDivX + 15) + `,` + (startDivY + 7) +
+                `" style="fill:` + color + `;" />
+
+              <line x1='` +
                 startDivX +
                 `' y1='` +
                 startDivY +
@@ -402,13 +421,17 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                 endDivY +
                 `' style='stroke:` +
                 color +
-                `;stroke-width:5' />
+                `;stroke-width:3' />
+                <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
               </svg>
             `;
             } else {
               this.wrapper_1.nativeElement.innerHTML +=
                 `
               <svg height='100%' width='100%' style='position: absolute;'>
+                <polygon points="` + endDivX + `,` + endDivY + ` ` + (endDivX + 15) +
+                `,` + (endDivY - 7) + ` ` + (endDivX + 15) + `,` + (endDivY + 7) +
+                `" style="fill:` + color + `;" />
                 <line x1='` +
                 startDivX +
                 `' y1='` +
@@ -419,7 +442,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                 startDivY +
                 `' style='stroke:` +
                 color +
-                `;stroke-width:5' />
+                `;stroke-width:3' />
                 <line x1='` +
                 (endDivX + 64) +
                 `' y1='` +
@@ -430,7 +453,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                 endDivY +
                 `' style='stroke:` +
                 color +
-                `;stroke-width:5' />
+                `;stroke-width:3' />
                 <line x1='` +
                 (endDivX + 64) +
                 `' y1='` +
@@ -441,7 +464,8 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                 endDivY +
                 `' style='stroke:` +
                 color +
-                `;stroke-width:5' />
+                `;stroke-width:3' />
+                <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
               </svg>
             `;
             }
@@ -461,6 +485,9 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
               this.wrapper_1.nativeElement.innerHTML +=
                 `
               <svg height='100%' width='100%' style='position: absolute;'>
+                <polygon points="` + (endDivX - 10) + `,` + (endDivY - 7) + ` ` + endDivX +
+                `,` + endDivY + ` ` + (endDivX - 10) + `,` + (endDivY + 7) +
+                `" style="fill:` + color + `;" />
                 <line x1='` +
                 startDivX +
                 `' y1='` +
@@ -471,13 +498,17 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                 endDivY +
                 `' style='stroke:` +
                 color +
-                `;stroke-width:5' />
+                `;stroke-width:3' />
+                <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
               </svg>
             `;
             } else {
               this.wrapper_1.nativeElement.innerHTML +=
                 `
               <svg height='100%' width='100%' style='position: absolute;'>
+                <polygon points="` + (endDivX - 10) + `,` + (endDivY - 7) + ` ` + (endDivX + 2) +
+                `,` + endDivY + ` ` + (endDivX - 10) + `,` + (endDivY + 7) +
+                `" style="fill:` + color + `;" />
                 <line x1='` +
                 startDivX +
                 `' y1='` +
@@ -488,7 +519,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                 startDivY +
                 `' style='stroke:` +
                 color +
-                `;stroke-width:5' />
+                `;stroke-width:3' />
                 <line x1='` +
                 (endDivX - 64) +
                 `' y1='` +
@@ -499,7 +530,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                 endDivY +
                 `' style='stroke:` +
                 color +
-                `;stroke-width:5' />
+                `;stroke-width:3' />
                 <line x1='` +
                 (endDivX - 64) +
                 `' y1='` +
@@ -510,7 +541,8 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                 endDivY +
                 `' style='stroke:` +
                 color +
-                `;stroke-width:5' />
+                `;stroke-width:3' />
+                <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
               </svg>
             `;
             }
