@@ -4,7 +4,7 @@
   </div>
   <mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer [opened]="loginService.loggedIn" class="example-sidenav" mode="side" position="end">
-      <app-side-drawer></app-side-drawer>
+      <app-side-drawer *ngIf="loginService.loggedIn"></app-side-drawer>
     </mat-drawer>
     <div class="content">
       <main class="main-content">

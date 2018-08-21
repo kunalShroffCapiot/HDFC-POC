@@ -20,10 +20,12 @@ export class EntityService {
           {
             id: '1',
             name: 'Entity 1',
+            description:'',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
+                 description:'',
                 relationOut: []
               }
             ]
@@ -31,15 +33,18 @@ export class EntityService {
           {
             id: '2',
             name: 'Entity 2',
+             description:'',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
+                 description:'',
                 relationOut: []
               },
               {
                 id: '2',
                 name: 'Att 2',
+                 description:'',
                 relationOut: []
               }
             ]
@@ -53,10 +58,12 @@ export class EntityService {
           {
             id: '3',
             name: 'Entity 3',
+             description:'',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
+                 description:'',
                 relationOut: [
                   {
                     stage: 'landing',
@@ -74,10 +81,12 @@ export class EntityService {
           {
             id: '4',
             name: 'Entity 4',
+             description:'',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
+                 description:'',
                 relationOut: []
               }
             ]
@@ -85,20 +94,24 @@ export class EntityService {
           {
             id: '5',
             name: 'Entity 5',
+             description:'',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
+                 description:'',
                 relationOut: []
               },
               {
                 id: '2',
                 name: 'Att 2',
+                 description:'',
                 relationOut: []
               },
               {
                 id: '3',
                 name: 'Att 3',
+                 description:'',
                 relationOut: [
                   {
                     stage: 'landing',
@@ -112,10 +125,12 @@ export class EntityService {
           {
             id: '6',
             name: 'Entity 6',
+             description:'',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
+                 description:'',
                 relationOut: []
               }
             ]
@@ -129,10 +144,12 @@ export class EntityService {
           {
             id: '7',
             name: 'Entity 7',
+             description:'',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
+                 description:'',
                 relationOut: [
                   {
                     stage: 'staging',
@@ -199,21 +216,25 @@ export class EntityService {
               {
                 id: '2',
                 name: 'Att 2',
+                 description:'',
                 relationOut: []
               },
               {
                 id: '3',
                 name: 'Att 3',
+                 description:'',
                 relationOut: []
               },
               {
                 id: '4',
                 name: 'Att 4',
+                 description:'',
                 relationOut: []
               },
               {
                 id: '5',
                 name: 'Att 5',
+                 description:'',
                 relationOut: []
               }
             ]
@@ -227,15 +248,18 @@ export class EntityService {
           {
             id: '8',
             name: 'Entity 8',
+             description:'',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
+                 description:'',
                 relationOut: []
               },
               {
                 id: '2',
                 name: 'Att 2',
+                 description:'',
                 relationOut: []
               }
             ]
@@ -243,10 +267,12 @@ export class EntityService {
           {
             id: '9',
             name: 'Entity 9',
+             description:'',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
+                 description:'',
                 relationOut: []
               }
             ]
@@ -254,15 +280,18 @@ export class EntityService {
           {
             id: '10',
             name: 'Entity 10',
+             description:'',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
+                 description:'',
                 relationOut: []
               },
               {
                 id: '2',
                 name: 'Att 2',
+                 description:'',
                 relationOut: [
                   {
                     stage: 'sor',
@@ -276,15 +305,18 @@ export class EntityService {
           {
             id: '11',
             name: 'Entity 11',
+             description:'',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
+                 description:'',
                 relationOut: []
               },
               {
                 id: '2',
                 name: 'Att 2',
+                 description:'',
                 relationOut: []
               }
             ]
@@ -333,9 +365,10 @@ export class EntityService {
               let data = {
                 id: element._id,
                 name: element.name,
+                description:element.description,
                 stage: stageName,
                 attr: element.attributeList.map(r => {
-                  return { id: r._id, name: r.name, relationIn: JSON.parse(element.definition), relationOut: [], key: r.key }
+                  return { id: r._id, name: r.name,description:(JSON.parse(element.definition))[r.key].properties, relationIn: JSON.parse(element.definition), relationOut: [], key: r.key }
                 })
 
 
@@ -345,6 +378,7 @@ export class EntityService {
           });
           this.finalData = finalData;
           observer.next(this.formatFinalData(this.finalData));
+         // debugger;
           observer.complete();
         }
 
@@ -369,6 +403,13 @@ export class EntityService {
     finalData.forEach(element => {
       element.attr.forEach(element2 => {
         let isExists = false;
+      //  debugger;
+        if(element2.description!=null && element2.description._description!=null){
+          element2.description=element2.description._description;
+        }
+        else{
+          element2.description=null;
+        }
         for (var key in element2.relationIn) {
           if (element2.relationIn.hasOwnProperty(key)) {
             var element3 = element2.relationIn[key];

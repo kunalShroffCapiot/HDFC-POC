@@ -18,7 +18,7 @@ export class LoginService {
   login(payload) {
     this.http.post<any>('http://sandbox.odp.capiot.com:32001/api/a/rbac/login', JSON.stringify(payload))
       .subscribe(response => {
-
+//debugger;
           localStorage.setItem('ba-user', JSON.stringify(response.basicDetails));
           localStorage.setItem('ba-token', response.token);
           localStorage.setItem('ba-rToken', response.rToken);

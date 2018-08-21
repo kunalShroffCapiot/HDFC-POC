@@ -53,7 +53,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
   getData(mode) {
     if (mode === 'Back') {
       this.entityService.getEntity().subscribe(res => {
-        // debugger;
+      //  debugger;
         this.generateEntity = res;
       }, err => {
         console.log('error has occurred' + err);
