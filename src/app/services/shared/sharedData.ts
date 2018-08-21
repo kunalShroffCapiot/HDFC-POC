@@ -1,8 +1,8 @@
-import { Subject, Observable } from "rxjs";
+import { Subject, Observable } from 'rxjs';
 
 export class sharedData {
 
-    private mode: any
+    private mode: any;
     track: Subject<any> = new Subject<any>();
     fooStream: Observable<any> = this.track.asObservable();
 

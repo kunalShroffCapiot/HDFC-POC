@@ -14,6 +14,8 @@ import { sharedData } from '../../../services/shared/sharedData';
 export class DashboardModel1Component implements OnInit, AfterContentInit {
   @ViewChild('wrapper_1')
   wrapper_1: ElementRef;
+  @ViewChild('wrapper_2')
+  wrapper_2: ElementRef;
   @ViewChildren('attributes')
   attributes: ElementRef;
   @ViewChildren('entities')
@@ -38,10 +40,10 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
     this.shared.track.subscribe(x => {
       // debugger;
       this.wrapper_1.nativeElement.innerHTML = '';
-      this.generateEntity=[];
+      this.generateEntity = [];
       this.getData(x);
     });
-    this.getData("Back");
+    this.getData('Back');
 
     this.sideDrawerService.getSelectEntity().subscribe(selectedEntity => {
       this.generateEnt(selectedEntity);
@@ -49,25 +51,23 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
   }
 
   getData(mode) {
-    if (mode == 'Back') {
+    if (mode === 'Back') {
       this.entityService.getEntity().subscribe(res => {
         // debugger;
         this.generateEntity = res;
       }, err => {
-        console.log("error has occurred" + err);
-      })
+        console.log('error has occurred' + err);
+      });
 
       // this.generateEntity = this.entityService.getEntity();
 
       this.dashboardService.getEntity();
-    }
-    else {
+    } else {
       this.generateEntity = this.entityService.getEntity_Old();
     }
   }
 
-  ngAfterContentInit() {
-  }
+  ngAfterContentInit() { }
 
   generateEnt(ent: any) {
 
@@ -87,6 +87,9 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
   }
 
   renderEntity(stageName, entity, attributeId) {
+
+    this.generateEnt(entity);
+
     if (
       entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut
         .length > 0
@@ -103,8 +106,10 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
       });
     }
 
-    console.log(this.generateEntity);
-    this.generateRelation(entity);
+    this.wrapper_1.nativeElement.style.height = this.wrapper_2.nativeElement.offsetHeight + 'px';
+    this.wrapper_1.nativeElement.style.width = this.wrapper_2.nativeElement.offsetWidth + 'px';
+
+    this.generateRelation(entity, attributeId);
 
   }
 
@@ -132,6 +137,8 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
 
   checkRelation(entityId, attributeId) {
 
+    // console.log(entityId);
+
     const EntityData = this.generateEntity;
 
     let stg = '';
@@ -149,196 +156,212 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
 
         if (entity.id === entityId) {
           entity.attr.forEach(attribute => {
-            attribute.relationOut.forEach(rel => {
 
-              let color = '';
-              let startDivX = null;
-              let startDivY = null;
-              let endDivX = null;
-              let endDivY = null;
+            if (attribute.relationOut.length > 0 && attribute.id === attributeId) {
 
-              if (stg === 'landing' && rel.stage === 'staging') {
-                color = '#F5717C';
-              } else if (stg === 'staging' && rel.stage === 'landing') {
-                color = '#77B3FF';
-              } else if (stg === 'staging' && rel.stage === 'sor') {
-                color = '#77B3FF';
-              } else if (stg === 'sor' && rel.stage === 'staging') {
-                color = '#FB9D46';
-              } else if (stg === 'sor' && rel.stage === 'mart') {
-                color = '#FB9D46';
-              } else {
-                color = '##78B847';
-              }
+              attribute.relationOut.forEach(rel => {
 
-              const element_from = _.filter(this.attributes['_results'], x => {
-                return (x.nativeElement.id === 'attr_' + entity.id + '_' + attribute.id);
-              });
+                let color = '';
+                let startDivX = null;
+                let startDivY = null;
+                let endDivX = null;
+                let endDivY = null;
 
-              const element_to = _.filter(this.attributes['_results'], x => {
-                return (x.nativeElement.id === 'attr_' + rel.entityId + '_' + rel.attributeId);
-              });
+                if (stg === 'landing' && rel.stage === 'staging') {
+                  color = '#F5717C';
+                } else if (stg === 'staging' && rel.stage === 'landing') {
+                  color = '#77B3FF';
+                } else if (stg === 'staging' && rel.stage === 'sor') {
+                  color = '#77B3FF';
+                } else if (stg === 'sor' && rel.stage === 'staging') {
+                  color = '#FB9D46';
+                } else if (stg === 'sor' && rel.stage === 'mart') {
+                  color = '#FB9D46';
+                } else if (stage === 'mart' && rel.stage === 'sor') {
+                  color = '#78B847';
+                }
+
+                const element_from = _.filter(this.attributes['_results'], x => {
+                  return (x.nativeElement.id === 'attr_' + entity.id + '_' + attribute.id);
+                });
+
+                const element_to = _.filter(this.attributes['_results'], x => {
+                  return (x.nativeElement.id === 'attr_' + rel.entityId + '_' + rel.attributeId);
+                });
 
 
-              if (element_to) {
-                if (
-                  (stg === 'staging' && rel.stage === 'landing') ||
-                  (stg === 'sor' && rel.stage === 'staging') ||
-                  (stg === 'mart' && rel.stage === 'sor')
-                ) {
+                if (element_to) {
+                  if (
+                    (stg === 'staging' && rel.stage === 'landing') ||
+                    (stg === 'sor' && rel.stage === 'staging') ||
+                    (stg === 'mart' && rel.stage === 'sor')
+                  ) {
 
-                  startDivX = element_from[0].nativeElement.offsetLeft - 10;
-                  startDivY = element_from[0].nativeElement.offsetTop + 46;
-                  endDivX = element_to[0].nativeElement.offsetLeft + 115;
-                  endDivY = element_to[0].nativeElement.offsetTop + 46;
+                    startDivX = element_from[0].nativeElement.offsetLeft - 10;
+                    startDivY = element_from[0].nativeElement.offsetTop + 13;
+                    endDivX = element_to[0].nativeElement.offsetLeft + 140;
+                    endDivY = element_to[0].nativeElement.offsetTop + 13;
 
-                  if (startDivY === endDivY) {
-                    this.wrapper_1.nativeElement.innerHTML +=
-                      `
+                    if (startDivY === endDivY) {
+                      this.wrapper_1.nativeElement.innerHTML +=
+                        `
+                        <div class="svg-ele">
                     <svg height='100%' width='100%' style='position: absolute;'>
                       <polygon points="` + endDivX + `,` + startDivY + ` ` + (endDivX + 15) +
-                                       `,` + (startDivY - 7) + ` ` + (endDivX + 15) + `,` + (startDivY + 7) +
-                                        `" style="fill:` + color + `;" />
+                        `,` + (startDivY - 7) + ` ` + (endDivX + 15) + `,` + (startDivY + 7) +
+                        `" style="fill:` + color + `;" />
                       <line x1='` +
-                      startDivX +
-                      `' y1='` +
-                      startDivY +
-                      `' x2='` +
-                      endDivX +
-                      `' y2='` +
-                      endDivY +
-                      `' style='stroke:` +
-                      color +
-                      `;stroke-width:3' />
+                        startDivX +
+                        `' y1='` +
+                        startDivY +
+                        `' x2='` +
+                        endDivX +
+                        `' y2='` +
+                        endDivY +
+                        `' style='stroke:` +
+                        color +
+                        `;stroke-width:3' />
                       <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
                       </svg>
+                      </div>
                   `;
-                  } else {
-                    this.wrapper_1.nativeElement.innerHTML +=
-                      `
+                    } else {
+                      this.wrapper_1.nativeElement.innerHTML +=
+                        `
+                        <div class="svg-ele">
                     <svg height='100%' width='100%' style='position: absolute;'>
                       <polygon points="` + endDivX + `,` + endDivY + ` ` + (endDivX + 15) +
-                      `,` + (endDivY - 7) + ` ` + (endDivX + 15) + `,` + (endDivY + 7) +
-                      `" style="fill:` + color + `;" />
+                        `,` + (endDivY - 7) + ` ` + (endDivX + 15) + `,` + (endDivY + 7) +
+                        `" style="fill:` + color + `;" />
                       <line x1='` +
-                      startDivX +
-                      `' y1='` +
-                      startDivY +
-                      `' x2='` +
-                      (endDivX + 64) +
-                      `' y2='` +
-                      startDivY +
-                      `' style='stroke:` +
-                      color +
-                      `;stroke-width:3' />
+                        startDivX +
+                        `' y1='` +
+                        startDivY +
+                        `' x2='` +
+                        (endDivX + 64) +
+                        `' y2='` +
+                        startDivY +
+                        `' style='stroke:` +
+                        color +
+                        `;stroke-width:3' />
                       <line x1='` +
-                      (endDivX + 64) +
-                      `' y1='` +
-                      startDivY +
-                      `' x2='` +
-                      (endDivX + 64) +
-                      `' y2='` +
-                      endDivY +
-                      `' style='stroke:` +
-                      color +
-                      `;stroke-width:3' />
+                        (endDivX + 64) +
+                        `' y1='` +
+                        startDivY +
+                        `' x2='` +
+                        (endDivX + 64) +
+                        `' y2='` +
+                        endDivY +
+                        `' style='stroke:` +
+                        color +
+                        `;stroke-width:3' />
                       <line x1='` +
-                      (endDivX + 64) +
-                      `' y1='` +
-                      endDivY +
-                      `' x2='` +
-                      endDivX +
-                      `' y2='` +
-                      endDivY +
-                      `' style='stroke:` +
-                      color +
-                      `;stroke-width:3' />
+                        (endDivX + 64) +
+                        `' y1='` +
+                        endDivY +
+                        `' x2='` +
+                        endDivX +
+                        `' y2='` +
+                        endDivY +
+                        `' style='stroke:` +
+                        color +
+                        `;stroke-width:3' />
                       <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
                     </svg>
+                    </div>
                   `;
+                    }
+
+                  } else if (
+                    (stg === 'landing' && rel.stage === 'staging') ||
+                    (stg === 'staging' && rel.stage === 'sor') ||
+                    (stg === 'sor' && rel.stage === 'mart')
+                  ) {
+                    startDivX = element_from[0].nativeElement.offsetLeft + 145;
+                    startDivY = element_from[0].nativeElement.offsetTop + 13;
+                    endDivX = element_to[0].nativeElement.offsetLeft - 10;
+                    endDivY = element_to[0].nativeElement.offsetTop + 13;
+
+                    if (startDivY === endDivY) {
+                      this.wrapper_1.nativeElement.innerHTML +=
+                        `
+                        <div class="svg-ele">
+                        <svg height='100%' width='100%' style='position: absolute;'>
+                      <polygon points="` + (endDivX - 15) + `,` + (endDivY - 7) + ` ` + endDivX +
+                        `,` + endDivY + ` ` + (endDivX - 15) + `,` + (endDivY + 7) +
+                        `" style="fill:` + color + `;" />
+                      <line x1='` +
+                        startDivX +
+                        `' y1='` +
+                        startDivY +
+                        `' x2='` +
+                        endDivX +
+                        `' y2='` +
+                        endDivY +
+                        `' style='stroke:` +
+                        color +
+                        `;stroke-width:3' />
+                      <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
+                    </svg>
+                    </div>
+                  `;
+                    } else {
+                      this.wrapper_1.nativeElement.innerHTML +=
+                        `
+                        <div class="svg-ele">
+                        <svg height='100%' width='100%' style='position: absolute;'>
+                      <polygon points="` + (endDivX - 15) + `,` + (endDivY - 7) + ` ` + endDivX +
+                        `,` + endDivY + ` ` + (endDivX - 15) + `,` + (endDivY + 7) +
+                        `" style="fill:` + color + `;" />
+                      <line x1='` +
+                        startDivX +
+                        `' y1='` +
+                        startDivY +
+                        `' x2='` +
+                        (endDivX - 64) +
+                        `' y2='` +
+                        startDivY +
+                        `' style='stroke:` +
+                        color +
+                        `;stroke-width:3' />
+                      <line x1='` +
+                        (endDivX - 64) +
+                        `' y1='` +
+                        startDivY +
+                        `' x2='` +
+                        (endDivX - 64) +
+                        `' y2='` +
+                        endDivY +
+                        `' style='stroke:` +
+                        color +
+                        `;stroke-width:3' />
+                      <line x1='` +
+                        (endDivX - 64) +
+                        `' y1='` +
+                        endDivY +
+                        `' x2='` +
+                        endDivX +
+                        `' y2='` +
+                        endDivY +
+                        `' style='stroke:` +
+                        color +
+                        `;stroke-width:3' />
+                      <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
+                    </svg>
+                    </div>
+                  `;
+                    }
+
                   }
 
-                } else if (
-                  (stg === 'landing' && rel.stage === 'staging') ||
-                  (stg === 'staging' && rel.stage === 'sor') ||
-                  (stg === 'sor' && rel.stage === 'mart')
-                ) {
-                  startDivX = element_from[0].nativeElement.offsetLeft + 120;
-                  startDivY = element_from[0].nativeElement.offsetTop + 46;
-                  endDivX = element_to[0].nativeElement.offsetLeft - 10;
-                  endDivY = element_to[0].nativeElement.offsetTop + 46;
-
-                  if (startDivY === endDivY) {
-                    this.wrapper_1.nativeElement.innerHTML +=
-                      `
-                    <svg height='100%' width='100%' style='position: absolute;'>
-                      <polygon points="` + (endDivX - 15) + `,` + (endDivY - 7) + ` ` + endDivX +
-                      `,` + endDivY + ` ` + (endDivX - 15) + `,` + (endDivY + 7) +
-                      `" style="fill:` + color + `;" />
-                      <line x1='` +
-                      startDivX +
-                      `' y1='` +
-                      startDivY +
-                      `' x2='` +
-                      endDivX +
-                      `' y2='` +
-                      endDivY +
-                      `' style='stroke:` +
-                      color +
-                      `;stroke-width:3' />
-                      <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
-                    </svg>
-                  `;
-                  } else {
-                    this.wrapper_1.nativeElement.innerHTML +=
-                      `
-                    <svg height='100%' width='100%' style='position: absolute;'>
-                      <polygon points="` + (endDivX - 15) + `,` + (endDivY - 7) + ` ` + endDivX +
-                      `,` + endDivY + ` ` + (endDivX - 15) + `,` + (endDivY + 7) +
-                      `" style="fill:` + color + `;" />
-                      <line x1='` +
-                      startDivX +
-                      `' y1='` +
-                      startDivY +
-                      `' x2='` +
-                      (endDivX - 64) +
-                      `' y2='` +
-                      startDivY +
-                      `' style='stroke:` +
-                      color +
-                      `;stroke-width:3' />
-                      <line x1='` +
-                      (endDivX - 64) +
-                      `' y1='` +
-                      startDivY +
-                      `' x2='` +
-                      (endDivX - 64) +
-                      `' y2='` +
-                      endDivY +
-                      `' style='stroke:` +
-                      color +
-                      `;stroke-width:3' />
-                      <line x1='` +
-                      (endDivX - 64) +
-                      `' y1='` +
-                      endDivY +
-                      `' x2='` +
-                      endDivX +
-                      `' y2='` +
-                      endDivY +
-                      `' style='stroke:` +
-                      color +
-                      `;stroke-width:3' />
-                      <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
-                    </svg>
-                  `;
-                  }
+                  this.checkRelation(rel.entityId, rel.attributeId);
 
                 }
 
-              }
+              });
 
-            });
+            }
+
           });
         }
       });
@@ -346,7 +369,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
 
   }
 
-  generateRelation(entity) {
+  generateRelation(entity, attributeId) {
 
     const EntityData = this.generateEntity;
 
@@ -361,199 +384,215 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
     });
 
     entity.attr.forEach(attribute => {
-      attribute.relationOut.forEach(rel => {
-        let color = '';
-        let startDivX = null;
-        let startDivY = null;
-        let endDivX = null;
-        let endDivY = null;
 
-        if (stage === 'landing' && rel.stage === 'staging') {
-          color = '#F5717C';
-        } else if (stage === 'staging' && rel.stage === 'landing') {
-          color = '#77B3FF';
-        } else if (stage === 'staging' && rel.stage === 'sor') {
-          color = '#77B3FF';
-        } else if (stage === 'sor' && rel.stage === 'staging') {
-          color = '#FB9D46';
-        } else if (stage === 'sor' && rel.stage === 'mart') {
-          color = '#FB9D46';
-        } else {
-          color = '##78B847';
-        }
+      if (attribute.relationOut.length > 0 && attribute.id === attributeId) {
 
-        const element_from = _.filter(this.attributes['_results'], x => {
-          return (x.nativeElement.id === 'attr_' + entity.id + '_' + attribute.id);
-        });
+        attribute.relationOut.forEach(rel => {
 
-        const element_to = _.filter(this.attributes['_results'], x => {
-          return (x.nativeElement.id === 'attr_' + rel.entityId + '_' + rel.attributeId);
-        });
+          let color = '';
+          let startDivX = null;
+          let startDivY = null;
+          let endDivX = null;
+          let endDivY = null;
 
-        if (element_to[0]) {
-          if (
-            (stage === 'staging' && rel.stage === 'landing') ||
-            (stage === 'sor' && rel.stage === 'staging') ||
-            (stage === 'mart' && rel.stage === 'sor')
-          ) {
+          if (stage === 'landing' && rel.stage === 'staging') {
+            color = '#F5717C';
+          } else if (stage === 'staging' && rel.stage === 'landing') {
+            color = '#77B3FF';
+          } else if (stage === 'staging' && rel.stage === 'sor') {
+            color = '#77B3FF';
+          } else if (stage === 'sor' && rel.stage === 'staging') {
+            color = '#FB9D46';
+          } else if (stage === 'sor' && rel.stage === 'mart') {
+            color = '#FB9D46';
+          } else if (stage === 'mart' && rel.stage === 'sor') {
+            color = '#78B847';
+          }
 
-            startDivX = element_from[0].nativeElement.offsetLeft - 10;
-            startDivY = element_from[0].nativeElement.offsetTop + 46;
-            endDivX = element_to[0].nativeElement.offsetLeft + 115;
-            endDivY = element_to[0].nativeElement.offsetTop + 46;
+          const element_from = _.filter(this.attributes['_results'], x => {
+            return (x.nativeElement.id === 'attr_' + entity.id + '_' + attribute.id);
+          });
 
+          const element_to = _.filter(this.attributes['_results'], x => {
+            return (x.nativeElement.id === 'attr_' + rel.entityId + '_' + rel.attributeId);
+          });
 
-            if (startDivY === endDivY) {
-              this.wrapper_1.nativeElement.innerHTML +=
-                `
+          if (element_to[0]) {
+            if (
+              (stage === 'staging' && rel.stage === 'landing') ||
+              (stage === 'sor' && rel.stage === 'staging') ||
+              (stage === 'mart' && rel.stage === 'sor')
+            ) {
+
+              startDivX = element_from[0].nativeElement.offsetLeft - 10;
+              startDivY = element_from[0].nativeElement.offsetTop + 13;
+              endDivX = element_to[0].nativeElement.offsetLeft + 140;
+              endDivY = element_to[0].nativeElement.offsetTop + 13;
+
+              if (startDivY === endDivY) {
+
+                this.wrapper_1.nativeElement.innerHTML +=
+                  `
+                  <div class="svg-ele">
               <svg height='100%' width='100%' style='position: absolute;'>
                 <polygon points="` + endDivX + `,` + startDivY + ` ` + (endDivX + 15) +
-                `,` + (startDivY - 7) + ` ` + (endDivX + 15) + `,` + (startDivY + 7) +
-                `" style="fill:` + color + `;" />
+                  `,` + (startDivY - 7) + ` ` + (endDivX + 15) + `,` + (startDivY + 7) +
+                  `" style="fill:` + color + `;" />
 
               <line x1='` +
-                startDivX +
-                `' y1='` +
-                startDivY +
-                `' x2='` +
-                endDivX +
-                `' y2='` +
-                endDivY +
-                `' style='stroke:` +
-                color +
-                `;stroke-width:3' />
+                  startDivX +
+                  `' y1='` +
+                  startDivY +
+                  `' x2='` +
+                  endDivX +
+                  `' y2='` +
+                  endDivY +
+                  `' style='stroke:` +
+                  color +
+                  `;stroke-width:3' />
                 <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
               </svg>
+              </div>
             `;
-            } else {
-              this.wrapper_1.nativeElement.innerHTML +=
-                `
+              } else {
+
+                this.wrapper_1.nativeElement.innerHTML +=
+                  `
+                  <div class="svg-ele">
               <svg height='100%' width='100%' style='position: absolute;'>
                 <polygon points="` + endDivX + `,` + endDivY + ` ` + (endDivX + 15) +
-                `,` + (endDivY - 7) + ` ` + (endDivX + 15) + `,` + (endDivY + 7) +
-                `" style="fill:` + color + `;" />
+                  `,` + (endDivY - 7) + ` ` + (endDivX + 15) + `,` + (endDivY + 7) +
+                  `" style="fill:` + color + `;" />
                 <line x1='` +
-                startDivX +
-                `' y1='` +
-                startDivY +
-                `' x2='` +
-                (endDivX + 64) +
-                `' y2='` +
-                startDivY +
-                `' style='stroke:` +
-                color +
-                `;stroke-width:3' />
+                  startDivX +
+                  `' y1='` +
+                  startDivY +
+                  `' x2='` +
+                  (endDivX + 64) +
+                  `' y2='` +
+                  startDivY +
+                  `' style='stroke:` +
+                  color +
+                  `;stroke-width:3' />
                 <line x1='` +
-                (endDivX + 64) +
-                `' y1='` +
-                startDivY +
-                `' x2='` +
-                (endDivX + 64) +
-                `' y2='` +
-                endDivY +
-                `' style='stroke:` +
-                color +
-                `;stroke-width:3' />
+                  (endDivX + 64) +
+                  `' y1='` +
+                  startDivY +
+                  `' x2='` +
+                  (endDivX + 64) +
+                  `' y2='` +
+                  endDivY +
+                  `' style='stroke:` +
+                  color +
+                  `;stroke-width:3' />
                 <line x1='` +
-                (endDivX + 64) +
-                `' y1='` +
-                endDivY +
-                `' x2='` +
-                endDivX +
-                `' y2='` +
-                endDivY +
-                `' style='stroke:` +
-                color +
-                `;stroke-width:3' />
+                  (endDivX + 64) +
+                  `' y1='` +
+                  endDivY +
+                  `' x2='` +
+                  endDivX +
+                  `' y2='` +
+                  endDivY +
+                  `' style='stroke:` +
+                  color +
+                  `;stroke-width:3' />
                 <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
               </svg>
+              </div>
             `;
-            }
+              }
 
-          } else if (
-            (stage === 'landing' && rel.stage === 'staging') ||
-            (stage === 'staging' && rel.stage === 'sor') ||
-            (stage === 'sor' && rel.stage === 'mart')
-          ) {
+            } else if (
+              (stage === 'landing' && rel.stage === 'staging') ||
+              (stage === 'staging' && rel.stage === 'sor') ||
+              (stage === 'sor' && rel.stage === 'mart')
+            ) {
 
-            startDivX = element_from[0].nativeElement.offsetLeft + 120;
-            startDivY = element_from[0].nativeElement.offsetTop + 46;
-            endDivX = element_to[0].nativeElement.offsetLeft - 10;
-            endDivY = element_to[0].nativeElement.offsetTop + 46;
+              startDivX = element_from[0].nativeElement.offsetLeft + 145;
+              startDivY = element_from[0].nativeElement.offsetTop + 13;
+              endDivX = element_to[0].nativeElement.offsetLeft - 10;
+              endDivY = element_to[0].nativeElement.offsetTop + 13;
 
-            if (startDivY === endDivY) {
-              this.wrapper_1.nativeElement.innerHTML +=
-                `
+              if (startDivY === endDivY) {
+                this.wrapper_1.nativeElement.innerHTML +=
+                  `
+                  <div class="svg-ele">
               <svg height='100%' width='100%' style='position: absolute;'>
                 <polygon points="` + (endDivX - 10) + `,` + (endDivY - 7) + ` ` + endDivX +
-                `,` + endDivY + ` ` + (endDivX - 10) + `,` + (endDivY + 7) +
-                `" style="fill:` + color + `;" />
+                  `,` + endDivY + ` ` + (endDivX - 10) + `,` + (endDivY + 7) +
+                  `" style="fill:` + color + `;" />
                 <line x1='` +
-                startDivX +
-                `' y1='` +
-                startDivY +
-                `' x2='` +
-                endDivX +
-                `' y2='` +
-                endDivY +
-                `' style='stroke:` +
-                color +
-                `;stroke-width:3' />
+                  startDivX +
+                  `' y1='` +
+                  startDivY +
+                  `' x2='` +
+                  endDivX +
+                  `' y2='` +
+                  endDivY +
+                  `' style='stroke:` +
+                  color +
+                  `;stroke-width:3' />
                 <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
               </svg>
+              </div>
             `;
-            } else {
-              this.wrapper_1.nativeElement.innerHTML +=
-                `
+              } else {
+                this.wrapper_1.nativeElement.innerHTML +=
+                  `
+                  <div class="svg-ele">
               <svg height='100%' width='100%' style='position: absolute;'>
                 <polygon points="` + (endDivX - 10) + `,` + (endDivY - 7) + ` ` + (endDivX + 2) +
-                `,` + endDivY + ` ` + (endDivX - 10) + `,` + (endDivY + 7) +
-                `" style="fill:` + color + `;" />
+                  `,` + endDivY + ` ` + (endDivX - 10) + `,` + (endDivY + 7) +
+                  `" style="fill:` + color + `;" />
                 <line x1='` +
-                startDivX +
-                `' y1='` +
-                startDivY +
-                `' x2='` +
-                (endDivX - 64) +
-                `' y2='` +
-                startDivY +
-                `' style='stroke:` +
-                color +
-                `;stroke-width:3' />
+                  startDivX +
+                  `' y1='` +
+                  startDivY +
+                  `' x2='` +
+                  (endDivX - 64) +
+                  `' y2='` +
+                  startDivY +
+                  `' style='stroke:` +
+                  color +
+                  `;stroke-width:3' />
                 <line x1='` +
-                (endDivX - 64) +
-                `' y1='` +
-                startDivY +
-                `' x2='` +
-                (endDivX - 64) +
-                `' y2='` +
-                endDivY +
-                `' style='stroke:` +
-                color +
-                `;stroke-width:3' />
+                  (endDivX - 64) +
+                  `' y1='` +
+                  startDivY +
+                  `' x2='` +
+                  (endDivX - 64) +
+                  `' y2='` +
+                  endDivY +
+                  `' style='stroke:` +
+                  color +
+                  `;stroke-width:3' />
                 <line x1='` +
-                (endDivX - 64) +
-                `' y1='` +
-                endDivY +
-                `' x2='` +
-                endDivX +
-                `' y2='` +
-                endDivY +
-                `' style='stroke:` +
-                color +
-                `;stroke-width:3' />
+                  (endDivX - 64) +
+                  `' y1='` +
+                  endDivY +
+                  `' x2='` +
+                  endDivX +
+                  `' y2='` +
+                  endDivY +
+                  `' style='stroke:` +
+                  color +
+                  `;stroke-width:3' />
                 <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
               </svg>
+              </div>
             `;
+              }
+
             }
+
+            this.checkRelation(rel.entityId, rel.attributeId);
 
           }
 
-          this.checkRelation(rel.entityId, rel.attributeId);
+        });
 
-        }
+      }
 
-      });
     });
   }
 

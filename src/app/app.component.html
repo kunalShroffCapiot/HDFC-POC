@@ -1,18 +1,15 @@
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer [opened]="loginService.loggedIn" class="example-sidenav" mode="side">
-
-   <app-side-drawer></app-side-drawer>
-  </mat-drawer>
-
-  <div class="body">
-    <div class="header">
-      <app-header (sideMenuToggle)="drawer.toggle()"></app-header>
-    </div>
+<div class="body">
+  <div class="header">
+    <app-header (sideMenuToggle)="drawer.toggle()"></app-header>
+  </div>
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer [opened]="loginService.loggedIn" class="example-sidenav" mode="side" position="end">
+      <app-side-drawer></app-side-drawer>
+    </mat-drawer>
     <div class="content">
       <main class="main-content">
         <router-outlet></router-outlet>
       </main>
     </div>
-  </div>
-
-</mat-drawer-container>
+  </mat-drawer-container>
+</div>
