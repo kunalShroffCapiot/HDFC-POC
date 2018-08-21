@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { LoginService } from '../../../services/user/login/Login.service';
-import { Input } from "@angular/core";
+import { Input } from '@angular/core';
 import {sharedData} from '../../../services/shared/sharedData';
 @Component({
   selector: 'app-header',
@@ -11,10 +11,10 @@ export class HeaderComponent implements OnInit {
 
   @Output() sideMenuToggle = new EventEmitter<void>();
   @Input('mode') mode;
-  showMode = "Back";
+  showMode = 'Back';
   menuSvg = true;
 
-  constructor(public loginService: LoginService,private shared:sharedData) { }
+  constructor(public loginService: LoginService, private shared: sharedData) { }
 
   ngOnInit() {
 

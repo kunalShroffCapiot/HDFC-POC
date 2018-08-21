@@ -1,21 +1,18 @@
 <section class="body">
 
+  <div class="wrapper-1" #wrapper_1></div>
 
-  <div class="wrapper-1" #wrapper_1>
+  <div class="wrapper-2" id="wrapper_2" #wrapper_2>
 
-    <!--<svg min-height="auto" min-width="96" style="position: absolute;">
-      <line x1="183" y1="120" x2="326" y2="120" style="stroke:rgb(255,0,0);stroke-width:2" />
-    </svg>-->
+    <div fxFlex fxFlexLayout="row" fxLayoutAlign="start start">
 
-  </div>
+      <div *ngFor="let stage of generateEntity" fxFlex="271px">
 
-  <div class="wrapper-2" id="wrapper_2">
+        <div class="stage-caption" fxLayoutAlign="center start">
+          {{stage.stage | uppercase}}
+        </div>
 
-    <div fxFlex fxFlexLayout="row" fxLayoutAlign="start start" fxLayoutGap="6rem">
-
-      <div *ngFor="let stage of generateEntity">
-
-        <div fxLayout="row">
+        <div fxLayout="row" fxLayoutAlign="center start">
 
           <div [ngClass]="stage.stage">
 

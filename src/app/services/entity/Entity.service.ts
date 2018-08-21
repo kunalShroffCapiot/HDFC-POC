@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 export class EntityService {
 
   public stage: any; // Array<Entity> = new Array<Entity>();
-finalData=[];
+  finalData = [];
   constructor(private http: HttpClient, private router: Router) {
 
     this.stage = [
@@ -264,11 +264,7 @@ finalData=[];
                 id: '2',
                 name: 'Att 2',
                 relationOut: [
-<<<<<<< HEAD
                   {
-=======
-                   {
->>>>>>> 9ef389bac34e3cbdc0340d440f4874297d6a0b83
                     stage: 'sor',
                     entityId: '7',
                     attributeId: '1'
@@ -297,103 +293,89 @@ finalData=[];
       }
     ];
   }
- getData(){
+
+  getData() {
     return this.http.get('http://sandbox.odp.capiot.com:32001/api/a/sm/service?page=1&count=-1&' +
       'filter=%7B%22domain%22:%22HDFC-DATA-LINEAGE%22%7D');
   }
 
-  getEntity_Old(){
+  getEntity_Old() {
     return (this.stage);
   }
 
-  getEntity():Observable<any> {
-    //return (this.stage);
- return new Observable((observer) => {
-    
-    // observable execution
-         this.getData().subscribe(res => {
-      debugger;
-      let actualData: any;
-      actualData = res;
-      let finalData = [];
-      if (actualData != null) {
-        actualData.forEach(element => {
-          // if (element.name.indexOf("entity") >= 0) {
-            if(true){
-            let stageName = "";
-            let stageIndex = -1;
-            let idx = 0;
-            element.attributeList.forEach(element2 => {
-              if (element2.name.indexOf("stage") >= 0) {
-                stageName = element2.name.substring(element2.name.indexOf("-") + 1);
-                stageIndex = idx;
+  getEntity(): Observable<any> {
+    return new Observable((observer) => {
+
+      // observable execution
+      this.getData().subscribe(res => {
+
+        let actualData: any;
+        actualData = res;
+        const finalData = [];
+        if (actualData != null) {
+          actualData.forEach(element => {
+
+            // if (element.name.indexOf("entity") >= 0) {
+            if (true) {
+              let stageName = '';
+              let stageIndex = -1;
+              let idx = 0;
+              element.attributeList.forEach(element2 => {
+                if (element2.name.indexOf('stage') >= 0) {
+                  stageName = element2.name.substring(element2.name.indexOf('-') + 1);
+                  stageIndex = idx;
+                }
+                idx = idx + 1;
+              });
+
+              if (stageName === '') {
+                return;
               }
-              idx = idx + 1;
-            });
-            if(stageName==""){
-              return;
+              element.attributeList.splice(stageIndex, 1);
+              const data = {
+                id: element._id,
+                name: element.name,
+                stage: stageName,
+                attr: element.attributeList.map(r => {
+                  return { id: r._id, name: r.name, relationIn: JSON.parse(element.definition), relationOut: [], key: r.key };
+                })
+              };
+              finalData.push(data);
             }
-            element.attributeList.splice(stageIndex, 1);
-            let data = {
-              id: element._id,
-              name: element.name,
-              stage: stageName,
-              attr: element.attributeList.map(r => {
-                return { id: r._id, name: r.name, relationIn: JSON.parse(element.definition), relationOut: [],key:r.key }
-              })
+          });
+          this.finalData = finalData;
+          observer.next(this.formatFinalData(this.finalData));
+          observer.complete();
+        }
 
+      }, err => {
+        console.log(err);
+        observer.complete();
+      });
 
-            }
-            finalData.push(data);
-          }
-        });
-       this.finalData=finalData;
-      observer.next(  this.formatFinalData(this.finalData));
-      observer.complete();
-      }
-
-
-
-    }, err => {
-      debugger;
-
-      console.log(err);
-      observer.complete();
     });
-   
-   
-    
-});
-  
 
   }
 
-   formatFinalData(finalData): any {
-    // debugger;
+  formatFinalData(finalData): any {
     finalData.forEach(element => {
       element.attr.forEach(element2 => {
         let isExists = false;
-        for (var key in element2.relationIn) {
+        for (const key in element2.relationIn) {
           if (element2.relationIn.hasOwnProperty(key)) {
-            var element3 = element2.relationIn[key];
-              debugger;
+            const element3 = element2.relationIn[key];
+
             if (element3.properties != null && element3.properties.name != null) {
               // debugger;
-              if (element3.properties.name == element2.name && element3.properties.relatedSearchField != null) {
+              if (element3.properties.name === element2.name && element3.properties.relatedSearchField != null) {
                 isExists = true;
-                let data = {
+                const data = {
                   stage: element.stage,
                   entityId: element.id,
                   attributeId: element2.id
-                }
-                // let r=_.filter(finalData,rr=>{
-                // return _.filter(rr.attr,rr2=>{
-                //     return rr.id=element3.properties.relatedTo && rr2.name==element3.properties.name
-                //   })
-                // })
-                // debugger;
-                this.updatefinalData(element3.properties.relatedTo, element3.properties.relatedSearchField, data)
-                // debugger;
+                };
+
+                this.updatefinalData(element3.properties.relatedTo, element3.properties.relatedSearchField, data);
                 return;
               }
 
@@ -405,35 +387,34 @@ finalData=[];
       });
     });
 
-   
-    this.finalData = _.chain(this.finalData).groupBy("stage").map(function (v, i) {
+
+    this.finalData = _.chain(this.finalData).groupBy('stage').map(function (v, i) {
       return {
         stage: i,
         entity: _.map(v, x => {
-          return { id: x.id, name: x.name, attr: x.attr }
-
+          return { id: x.id, name: x.name, attr: x.attr };
         })
 
-      }
+      };
     }).value();
-// debugger;
-    let landing=_.filter(this.finalData,x=>{
-     return x.stage=="landing";
+
+    const landing = _.filter(this.finalData, x => {
+      return x.stage === 'landing';
     })[0];
 
-    let staging=_.filter(this.finalData,x=>{
-     return x.stage=="staging";
+    const staging = _.filter(this.finalData, x => {
+      return x.stage === 'staging';
     })[0];
 
-    let sor=_.filter(this.finalData,x=>{
-     return x.stage=="sor";
+    const sor = _.filter(this.finalData, x => {
+      return x.stage === 'sor';
     })[0];
 
-    let mart=_.filter(this.finalData,x=>{
-      return x.stage=="mart";
+    const mart = _.filter(this.finalData, x => {
+      return x.stage === 'mart';
     })[0];
 
-    this.finalData=[];
+    this.finalData = [];
     this.finalData.push(landing);
     this.finalData.push(staging);
     this.finalData.push(sor);
@@ -441,17 +422,17 @@ finalData=[];
 
     return this.finalData;
 
-   }
+  }
 
-     updatefinalData(entityId, attributeName, dataTOpushed) {
+  updatefinalData(entityId, attributeName, dataTOpushed) {
     // debugger;
-    let entity = _.filter(this.finalData, r => {
-      return r.id == entityId
+    const entity = _.filter(this.finalData, r => {
+      return r.id === entityId;
     });
 
     if (entity != null && entity.length > 0) {
-      let attribute = _.filter(entity[0].attr, r => {
-        return r.key == attributeName
+      const attribute = _.filter(entity[0].attr, r => {
+        return r.key === attributeName;
       });
 
       if (attribute != null && attribute.length > 0) {

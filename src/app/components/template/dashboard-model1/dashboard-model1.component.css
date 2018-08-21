@@ -1,24 +1,27 @@
 .body {
-  padding: 1rem;
+  padding: 0rem 1rem;
 }
 
 .wrapper-1 {
-  width: 1200px;
-  height: 700px;
+  width: 100%;
+  height: auto;
   position: absolute;
-  top: 2rem;
   left: 0;
   background: transparent;
   z-index: 1;
 }
 
 .wrapper-2 {
-  min-width: 100px;
-  min-height: 100px;
+  width: auto;
+  height: auto;
   position: absolute;
-  top: 4rem;
   left: 0;
   z-index: 2;
+}
+
+.stage-caption {
+  font-size: 20px;
+  padding: 1rem 0.25rem;
 }
 
 .landing > .entity > .entity-header {
@@ -40,10 +43,9 @@
 .entity {
   border-radius: 10px;
   background: white;
-  width: 126.12px;
+  width: 150px;
   min-height: 100px;
   box-shadow: 0 0 6px darkgray;
-  margin-left: 3rem;
 }
 
 .entity:not(:first-child) {
@@ -59,9 +61,7 @@
 }
 
 .entity-content {
-
   padding: 0.5rem;
-
 }
 
 .entity-caption {
@@ -77,34 +77,10 @@
   padding-bottom: 1rem;
 }
 
-.line {
-  padding: 0 !important;
-  position: relative;
+.svg-ele {
+  position: absolute;
 }
 
-.line-hor {
-  width: 3rem;
-  height: 5px;
-}
-
-.align-line {
-  margin-top: -1rem;
-}
-
-.line-hor-left {
-  margin-left: -3.5rem;
-}
-
-.line-hor-right {
-  margin-left: 7.5rem;
-}
-
-.line-ver {
-  margin-left: 3rem;
-  margin-top: 54px;
-}
-
-.line-ver-ele {
-  width: 5px;
-  height: 490px;
+.svg-ele:hover {
+  z-index: 1;
 }

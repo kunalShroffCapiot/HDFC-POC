@@ -14,6 +14,8 @@ import { sharedData } from '../../../services/shared/sharedData';
 export class DashboardModel1Component implements OnInit, AfterContentInit {
   @ViewChild('wrapper_1')
   wrapper_1: ElementRef;
+  @ViewChild('wrapper_2')
+  wrapper_2: ElementRef;
   @ViewChildren('attributes')
   attributes: ElementRef;
   @ViewChildren('entities')
@@ -38,10 +40,10 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
     this.shared.track.subscribe(x => {
       // debugger;
       this.wrapper_1.nativeElement.innerHTML = '';
-      this.generateEntity=[];
+      this.generateEntity = [];
       this.getData(x);
     });
-    this.getData("Back");
+    this.getData('Back');
 
     this.sideDrawerService.getSelectEntity().subscribe(selectedEntity => {
       this.generateEnt(selectedEntity);
@@ -49,25 +51,23 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
   }
 
   getData(mode) {
-    if (mode == 'Back') {
+    if (mode === 'Back') {
       this.entityService.getEntity().subscribe(res => {
         // debugger;
         this.generateEntity = res;
       }, err => {
-        console.log("error has occurred" + err);
-      })
+        console.log('error has occurred' + err);
+      });
 
       // this.generateEntity = this.entityService.getEntity();
 
       this.dashboardService.getEntity();
-    }
-    else {
+    } else {
       this.generateEntity = this.entityService.getEntity_Old();
     }
   }
 
-  ngAfterContentInit() {
-  }
+  ngAfterContentInit() { }
 
   generateEnt(ent: any) {
 
@@ -87,6 +87,9 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
   }
 
   renderEntity(stageName, entity, attributeId) {
+
+    this.generateEnt(entity);
+
     if (
       entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut
         .length > 0
@@ -103,12 +106,10 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
       });
     }
 
-<<<<<<< HEAD
+    this.wrapper_1.nativeElement.style.height = this.wrapper_2.nativeElement.offsetHeight + 'px';
+    this.wrapper_1.nativeElement.style.width = this.wrapper_2.nativeElement.offsetWidth + 'px';
+
     this.generateRelation(entity, attributeId);
-=======
-    this.generateRelation(entity);
-    console.log(this.generateEntity);
->>>>>>> 9ef389bac34e3cbdc0340d440f4874297d6a0b83
 
   }
 
@@ -197,13 +198,14 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   ) {
 
                     startDivX = element_from[0].nativeElement.offsetLeft - 10;
-                    startDivY = element_from[0].nativeElement.offsetTop + 46;
-                    endDivX = element_to[0].nativeElement.offsetLeft + 115;
-                    endDivY = element_to[0].nativeElement.offsetTop + 46;
+                    startDivY = element_from[0].nativeElement.offsetTop + 13;
+                    endDivX = element_to[0].nativeElement.offsetLeft + 140;
+                    endDivY = element_to[0].nativeElement.offsetTop + 13;
 
                     if (startDivY === endDivY) {
                       this.wrapper_1.nativeElement.innerHTML +=
                         `
+                        <div class="svg-ele">
                     <svg height='100%' width='100%' style='position: absolute;'>
                       <polygon points="` + endDivX + `,` + startDivY + ` ` + (endDivX + 15) +
                         `,` + (startDivY - 7) + ` ` + (endDivX + 15) + `,` + (startDivY + 7) +
@@ -221,10 +223,12 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         `;stroke-width:3' />
                       <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
                       </svg>
+                      </div>
                   `;
                     } else {
                       this.wrapper_1.nativeElement.innerHTML +=
                         `
+                        <div class="svg-ele">
                     <svg height='100%' width='100%' style='position: absolute;'>
                       <polygon points="` + endDivX + `,` + endDivY + ` ` + (endDivX + 15) +
                         `,` + (endDivY - 7) + ` ` + (endDivX + 15) + `,` + (endDivY + 7) +
@@ -264,6 +268,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         `;stroke-width:3' />
                       <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
                     </svg>
+                    </div>
                   `;
                     }
 
@@ -272,15 +277,16 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                     (stg === 'staging' && rel.stage === 'sor') ||
                     (stg === 'sor' && rel.stage === 'mart')
                   ) {
-                    startDivX = element_from[0].nativeElement.offsetLeft + 120;
-                    startDivY = element_from[0].nativeElement.offsetTop + 46;
+                    startDivX = element_from[0].nativeElement.offsetLeft + 145;
+                    startDivY = element_from[0].nativeElement.offsetTop + 13;
                     endDivX = element_to[0].nativeElement.offsetLeft - 10;
-                    endDivY = element_to[0].nativeElement.offsetTop + 46;
+                    endDivY = element_to[0].nativeElement.offsetTop + 13;
 
                     if (startDivY === endDivY) {
                       this.wrapper_1.nativeElement.innerHTML +=
                         `
-                    <svg height='100%' width='100%' style='position: absolute;'>
+                        <div class="svg-ele">
+                        <svg height='100%' width='100%' style='position: absolute;'>
                       <polygon points="` + (endDivX - 15) + `,` + (endDivY - 7) + ` ` + endDivX +
                         `,` + endDivY + ` ` + (endDivX - 15) + `,` + (endDivY + 7) +
                         `" style="fill:` + color + `;" />
@@ -297,11 +303,13 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         `;stroke-width:3' />
                       <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
                     </svg>
+                    </div>
                   `;
                     } else {
                       this.wrapper_1.nativeElement.innerHTML +=
                         `
-                    <svg height='100%' width='100%' style='position: absolute;'>
+                        <div class="svg-ele">
+                        <svg height='100%' width='100%' style='position: absolute;'>
                       <polygon points="` + (endDivX - 15) + `,` + (endDivY - 7) + ` ` + endDivX +
                         `,` + endDivY + ` ` + (endDivX - 15) + `,` + (endDivY + 7) +
                         `" style="fill:` + color + `;" />
@@ -340,6 +348,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         `;stroke-width:3' />
                       <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
                     </svg>
+                    </div>
                   `;
                     }
 
@@ -416,16 +425,15 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
             ) {
 
               startDivX = element_from[0].nativeElement.offsetLeft - 10;
-              startDivY = element_from[0].nativeElement.offsetTop + 46;
-              endDivX = element_to[0].nativeElement.offsetLeft + 115;
-              endDivY = element_to[0].nativeElement.offsetTop + 46;
-
-              console.log(startDivX + ' - ' + startDivY + ' - ' + endDivX + ' - ' + endDivY + ' - ' + color );
+              startDivY = element_from[0].nativeElement.offsetTop + 13;
+              endDivX = element_to[0].nativeElement.offsetLeft + 140;
+              endDivY = element_to[0].nativeElement.offsetTop + 13;
 
               if (startDivY === endDivY) {
 
                 this.wrapper_1.nativeElement.innerHTML +=
                   `
+                  <div class="svg-ele">
               <svg height='100%' width='100%' style='position: absolute;'>
                 <polygon points="` + endDivX + `,` + startDivY + ` ` + (endDivX + 15) +
                   `,` + (startDivY - 7) + ` ` + (endDivX + 15) + `,` + (startDivY + 7) +
@@ -444,11 +452,13 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   `;stroke-width:3' />
                 <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
               </svg>
+              </div>
             `;
               } else {
 
                 this.wrapper_1.nativeElement.innerHTML +=
                   `
+                  <div class="svg-ele">
               <svg height='100%' width='100%' style='position: absolute;'>
                 <polygon points="` + endDivX + `,` + endDivY + ` ` + (endDivX + 15) +
                   `,` + (endDivY - 7) + ` ` + (endDivX + 15) + `,` + (endDivY + 7) +
@@ -488,6 +498,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   `;stroke-width:3' />
                 <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
               </svg>
+              </div>
             `;
               }
 
@@ -497,14 +508,15 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
               (stage === 'sor' && rel.stage === 'mart')
             ) {
 
-              startDivX = element_from[0].nativeElement.offsetLeft + 120;
-              startDivY = element_from[0].nativeElement.offsetTop + 46;
+              startDivX = element_from[0].nativeElement.offsetLeft + 145;
+              startDivY = element_from[0].nativeElement.offsetTop + 13;
               endDivX = element_to[0].nativeElement.offsetLeft - 10;
-              endDivY = element_to[0].nativeElement.offsetTop + 46;
+              endDivY = element_to[0].nativeElement.offsetTop + 13;
 
               if (startDivY === endDivY) {
                 this.wrapper_1.nativeElement.innerHTML +=
                   `
+                  <div class="svg-ele">
               <svg height='100%' width='100%' style='position: absolute;'>
                 <polygon points="` + (endDivX - 10) + `,` + (endDivY - 7) + ` ` + endDivX +
                   `,` + endDivY + ` ` + (endDivX - 10) + `,` + (endDivY + 7) +
@@ -522,10 +534,12 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   `;stroke-width:3' />
                 <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
               </svg>
+              </div>
             `;
               } else {
                 this.wrapper_1.nativeElement.innerHTML +=
                   `
+                  <div class="svg-ele">
               <svg height='100%' width='100%' style='position: absolute;'>
                 <polygon points="` + (endDivX - 10) + `,` + (endDivY - 7) + ` ` + (endDivX + 2) +
                   `,` + endDivY + ` ` + (endDivX - 10) + `,` + (endDivY + 7) +
@@ -565,6 +579,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   `;stroke-width:3' />
                 <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
               </svg>
+              </div>
             `;
               }
 
