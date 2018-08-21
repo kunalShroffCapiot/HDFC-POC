@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 export class EntityService {
 
   public stage: any; // Array<Entity> = new Array<Entity>();
-finalData=[];
+  finalData = [];
   constructor(private http: HttpClient, private router: Router) {
 
     this.stage = [
@@ -264,7 +264,7 @@ finalData=[];
                 id: '2',
                 name: 'Att 2',
                 relationOut: [
-                   {
+                  {
                     stage: 'sor',
                     entityId: '7',
                     attributeId: '1'
@@ -293,78 +293,78 @@ finalData=[];
       }
     ];
   }
- getData(){
+  getData() {
     return this.http.get('http://sandbox.odp.capiot.com:32001/api/a/sm/service?page=1&count=-1&' +
       'filter=%7B%22domain%22:%22HDFC-DATA-LINEAGE%22%7D');
   }
 
-  getEntity_Old(){
+  getEntity_Old() {
     return (this.stage);
   }
 
-  getEntity():Observable<any> {
+  getEntity(): Observable<any> {
     //return (this.stage);
- return new Observable((observer) => {
-    
-    // observable execution
-         this.getData().subscribe(res => {
-      debugger;
-      let actualData: any;
-      actualData = res;
-      let finalData = [];
-      if (actualData != null) {
-        actualData.forEach(element => {
-          // if (element.name.indexOf("entity") >= 0) {
-            if(true){
-            let stageName = "";
-            let stageIndex = -1;
-            let idx = 0;
-            element.attributeList.forEach(element2 => {
-              if (element2.name.indexOf("stage") >= 0) {
-                stageName = element2.name.substring(element2.name.indexOf("-") + 1);
-                stageIndex = idx;
+    return new Observable((observer) => {
+
+      // observable execution
+      this.getData().subscribe(res => {
+        debugger;
+        let actualData: any;
+        actualData = res;
+        let finalData = [];
+        if (actualData != null) {
+          actualData.forEach(element => {
+            // if (element.name.indexOf("entity") >= 0) {
+            if (true) {
+              let stageName = "";
+              let stageIndex = -1;
+              let idx = 0;
+              element.attributeList.forEach(element2 => {
+                if (element2.name.indexOf("stage") >= 0) {
+                  stageName = element2.name.substring(element2.name.indexOf("-") + 1);
+                  stageIndex = idx;
+                }
+                idx = idx + 1;
+              });
+              if (stageName == "") {
+                return;
               }
-              idx = idx + 1;
-            });
-            if(stageName==""){
-              return;
+              element.attributeList.splice(stageIndex, 1);
+              let data = {
+                id: element._id,
+                name: element.name,
+                stage: stageName,
+                attr: element.attributeList.map(r => {
+                  return { id: r._id, name: r.name, relationIn: JSON.parse(element.definition), relationOut: [], key: r.key }
+                })
+
+
+              }
+              finalData.push(data);
             }
-            element.attributeList.splice(stageIndex, 1);
-            let data = {
-              id: element._id,
-              name: element.name,
-              stage: stageName,
-              attr: element.attributeList.map(r => {
-                return { id: r._id, name: r.name, relationIn: JSON.parse(element.definition), relationOut: [],key:r.key }
-              })
-
-
-            }
-            finalData.push(data);
-          }
-        });
-       this.finalData=finalData;
-      observer.next(  this.formatFinalData(this.finalData));
-      observer.complete();
-      }
+          });
+          this.finalData = finalData;
+          observer.next(this.formatFinalData(this.finalData));
+          observer.complete();
+        }
 
 
 
-    }, err => {
-      debugger;
+      }, err => {
+        debugger;
 
-      console.log(err);
-      observer.complete();
+        console.log(err);
+        observer.complete();
+      });
+
+
+
     });
-   
-   
-    
-});
-  
+
 
   }
 
-   formatFinalData(finalData): any {
+  formatFinalData(finalData): any {
     // debugger;
     finalData.forEach(element => {
       element.attr.forEach(element2 => {
@@ -372,7 +372,7 @@ finalData=[];
         for (var key in element2.relationIn) {
           if (element2.relationIn.hasOwnProperty(key)) {
             var element3 = element2.relationIn[key];
-              debugger;
+            // debugger;
             if (element3.properties != null && element3.properties.name != null) {
               // debugger;
               if (element3.properties.name == element2.name && element3.properties.relatedSearchField != null) {
@@ -382,13 +382,28 @@ finalData=[];
                   entityId: element.id,
                   attributeId: element2.id
                 }
-                // let r=_.filter(finalData,rr=>{
-                // return _.filter(rr.attr,rr2=>{
-                //     return rr.id=element3.properties.relatedTo && rr2.name==element3.properties.name
-                //   })
-                // })
+                let r = _.filter(finalData, rr => {
+
+                  return rr.id == element3.properties.relatedTo
+
+                });
+                if (r != null && r.length > 0) {
+                  data.entityId=r[0].id;
+                  data.stage=r[0].stage;
+                  r = _.filter(r[0].attr, x => {
+                    return x.key == element3.properties.relatedSearchField
+                  });
+
+                  if (r != null && r.length > 0) {
+                    data.attributeId=r[0].id;
+                    element2.relationOut.push(data);
+                  }
+
+
+                }
+
                 // debugger;
-                this.updatefinalData(element3.properties.relatedTo, element3.properties.relatedSearchField, data)
+              //  this.updatefinalData(element3.properties.relatedTo, element3.properties.relatedSearchField, data)
                 // debugger;
                 return;
               }
@@ -401,7 +416,7 @@ finalData=[];
       });
     });
 
-   
+
     this.finalData = _.chain(this.finalData).groupBy("stage").map(function (v, i) {
       return {
         stage: i,
@@ -412,24 +427,24 @@ finalData=[];
 
       }
     }).value();
-// debugger;
-    let landing=_.filter(this.finalData,x=>{
-     return x.stage=="landing";
+    // debugger;
+    let landing = _.filter(this.finalData, x => {
+      return x.stage == "landing";
     })[0];
 
-    let staging=_.filter(this.finalData,x=>{
-     return x.stage=="staging";
+    let staging = _.filter(this.finalData, x => {
+      return x.stage == "staging";
     })[0];
 
-    let sor=_.filter(this.finalData,x=>{
-     return x.stage=="sor";
+    let sor = _.filter(this.finalData, x => {
+      return x.stage == "sor";
     })[0];
 
-    let mart=_.filter(this.finalData,x=>{
-      return x.stage=="mart";
+    let mart = _.filter(this.finalData, x => {
+      return x.stage == "mart";
     })[0];
 
-    this.finalData=[];
+    this.finalData = [];
     this.finalData.push(landing);
     this.finalData.push(staging);
     this.finalData.push(sor);
@@ -437,9 +452,9 @@ finalData=[];
 
     return this.finalData;
 
-   }
+  }
 
-     updatefinalData(entityId, attributeName, dataTOpushed) {
+  updatefinalData(entityId, attributeName, dataTOpushed) {
     // debugger;
     let entity = _.filter(this.finalData, r => {
       return r.id == entityId

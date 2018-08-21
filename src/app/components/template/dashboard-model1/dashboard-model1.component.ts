@@ -103,8 +103,8 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
       });
     }
 
-    this.generateRelation(entity);
     console.log(this.generateEntity);
+    this.generateRelation(entity);
 
   }
 
