@@ -43,18 +43,22 @@
 
 .landing > .entity > .entity-header {
   background: #F5717C;
+  cursor: pointer;
 }
 
 .staging > .entity > .entity-header {
   background: #77B3FF;
+  cursor: pointer;
 }
 
 .sor > .entity > .entity-header {
   background: #FB9D46;
+  cursor: pointer;
 }
 
 .mart > .entity > .entity-header {
   background: #78B847;
+  cursor: pointer;
 }
 
 .entity {
@@ -79,6 +83,8 @@
 
 .entity-content {
   padding: 0.5rem;
+  max-height: 230px;
+  overflow-y: scroll;
 }
 
 .entity-caption {
@@ -92,6 +98,16 @@
 
 .attribute:last-child {
   padding-bottom: 1rem;
+}
+
+.attribute-count {
+  border: 1px solid #E4E4E4;
+  width: 30px;
+  height: 18px;
+  border-radius: 10px;
+  text-align: center;
+  vertical-align: center;
+  float:right;
 }
 
 .svg-ele {

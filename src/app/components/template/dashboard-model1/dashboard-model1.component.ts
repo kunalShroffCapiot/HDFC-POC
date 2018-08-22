@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, ViewChildren, AfterContentInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewChildren, AfterContentInit, AfterViewChecked } from '@angular/core';
 import { DashboardService } from '../../../services/user/dashboard/Dashboard.service';
 import { Subscription } from 'rxjs';
 import { SideDrawerService } from '../../../services/common/sideDrawer/SideDrawer.service';
@@ -11,7 +11,7 @@ import { sharedData } from '../../../services/shared/sharedData';
   templateUrl: './dashboard-model1.component.html',
   styleUrls: ['./dashboard-model1.component.css']
 })
-export class DashboardModel1Component implements OnInit, AfterContentInit {
+export class DashboardModel1Component implements OnInit, AfterContentInit, AfterViewChecked {
   @ViewChild('wrapper_1')
   wrapper_1: ElementRef;
   @ViewChild('wrapper_2')
@@ -27,6 +27,9 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
   stage: any;
 
   generateEntity: any;
+  generateRelationFlag = false;
+  initialEntity: any;
+  initialAttribute: any;
 
   constructor(
     private elRef: ElementRef,
@@ -50,10 +53,21 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
     });
   }
 
+  ngAfterViewChecked() {
+
+    console.log('hmm');
+
+    if (this.initialEntity && this.initialAttribute) {
+      this.wrapper_1.nativeElement.innerHTML = '';
+      this.generateRelation(this.initialEntity, this.initialAttribute);
+    }
+
+  }
+
   getData(mode) {
     if (mode === 'Back') {
       this.entityService.getEntity().subscribe(res => {
-      //  debugger;
+        //  debugger;
         this.generateEntity = res;
       }, err => {
         console.log('error has occurred' + err);
@@ -69,7 +83,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
 
   ngAfterContentInit() { }
 
-  generateEnt(ent: any) {
+  generateEnt(ent: any, attributeId) {
 
     this.wrapper_1.nativeElement.innerHTML = '';
 
@@ -84,11 +98,24 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
 
     this.entities['_results'][index].nativeElement.hidden = false;
 
+
+    this.generateEntity.forEach(s => {
+      s.entity.forEach(e => {
+        e.attr.forEach(a => {
+          if (a.id === attributeId) {
+            a.display = true;
+          }
+        });
+      })
+    });
+
+
+
   }
 
   renderEntity(stageName, entity, attributeId) {
 
-    this.generateEnt(entity);
+    this.generateEnt(entity, attributeId);
 
     if (
       entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut
@@ -96,9 +123,14 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
     ) {
       entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut.forEach(x => {
 
-        _.forEach(this.generateEntity, s => {
-          _.forEach(s.entity, e => {
+        this.generateEntity.forEach(s => {
+          s.entity.forEach(e => {
             if (x.entityId === e.id) {
+              e['attr'].forEach(a => {
+                if (a.id === x.attributeId) {
+                  a.display = true;
+                }
+              });
               this.putEntity(s.stage, e, x.attributeId);
             }
           });
@@ -106,10 +138,14 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
       });
     }
 
-    this.wrapper_1.nativeElement.style.height = this.wrapper_2.nativeElement.offsetHeight + 'px';
+    this.wrapper_1.nativeElement.style.height = (this.wrapper_2.nativeElement.offsetHeight + 100) + 'px';
     this.wrapper_1.nativeElement.style.width = this.wrapper_2.nativeElement.offsetWidth + 'px';
 
-    this.generateRelation(entity, attributeId);
+    // console.log(this.generateEntity);
+
+    this.generateRelationFlag = true;
+    this.initialEntity = entity;
+    this.initialAttribute = attributeId;
 
   }
 
@@ -127,6 +163,11 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
         this.generateEntity.forEach(s => {
           s.entity.forEach(e => {
             if (x.entityId === e.id) {
+              e['attr'].forEach(a => {
+                if (a.id === x.attributeId) {
+                  a.display = true;
+                }
+              });
               this.putEntity(s.stage, e, x.attributeId);
             }
           });
@@ -208,8 +249,8 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         <div class="svg-ele">
                     <svg height='100%' width='100%' style='position: absolute;'>
                       <polygon points="` + (endDivX - 7) + `,` + startDivY + ` ` + (endDivX + 5) +
-                      `,` + (startDivY - 7) + ` ` + (endDivX + 5) + `,` + (startDivY + 7) +
-                      `" style="fill:` + color + `;" />
+                        `,` + (startDivY - 7) + ` ` + (endDivX + 5) + `,` + (startDivY + 7) +
+                        `" style="fill:` + color + `;" />
                         <line x1='` +
                         startDivX +
                         `' y1='` +
@@ -231,8 +272,8 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         <div class="svg-ele">
                     <svg height='100%' width='100%' style='position: absolute;'>
                       <polygon points="` + (endDivX - 7) + `,` + endDivY + ` ` + (endDivX + 5) +
-                      `,` + (endDivY - 7) + ` ` + (endDivX + 5) + `,` + (endDivY + 7) +
-                      `" style="fill:` + color + `;" />
+                        `,` + (endDivY - 7) + ` ` + (endDivX + 5) + `,` + (endDivY + 7) +
+                        `" style="fill:` + color + `;" />
                         <line x1='` +
                         startDivX +
                         `' y1='` +
@@ -593,6 +634,8 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
       }
 
     });
+
+    this.generateRelationFlag = false;
   }
 
 }

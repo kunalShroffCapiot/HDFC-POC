@@ -14,27 +14,24 @@ export class SideDrawerComponent implements OnInit {
   constructor(private sideDrawerService: SideDrawerService, private entityService: EntityService, private shared: sharedData) { }
 
   ngOnInit() {
-    debugger;
     this.shared.track.subscribe(x => {
       // this.stage=[];
       this.getData(x);
     });
 
-    this.getData("Back");
-    //this.stage = this.entityService.getEntity();
+    this.getData('Back');
+    // this.stage = this.entityService.getEntity();
 
   }
 
   getData(mode) {
-    if (mode == 'Back') {
+    if (mode === 'Back') {
       this.entityService.getEntity().subscribe(res => {
-        debugger;
         this.stage = res;
       }, err => {
-        console.log("error has occurred" + err);
-      })
-    }
-    else {
+        console.log('error has occurred' + err);
+      });
+    } else {
       this.stage = this.entityService.getEntity_Old();
     }
 

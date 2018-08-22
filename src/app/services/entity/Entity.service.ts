@@ -20,32 +20,35 @@ export class EntityService {
           {
             id: '1',
             name: 'Entity 1',
-            description:'',
+            description: '',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               }
             ]
           },
           {
             id: '2',
             name: 'Entity 2',
-             description:'',
+             description: '',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               },
               {
                 id: '2',
                 name: 'Att 2',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               }
             ]
           }
@@ -58,12 +61,12 @@ export class EntityService {
           {
             id: '3',
             name: 'Entity 3',
-             description:'',
+             description: '',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
-                 description:'',
+                 description: '',
                 relationOut: [
                   {
                     stage: 'landing',
@@ -74,66 +77,72 @@ export class EntityService {
                     stage: 'landing',
                     entityId: '2',
                     attributeId: '1'
-                  }]
-              }
+                  }],
+                  display: false
+                }
             ]
           },
           {
             id: '4',
             name: 'Entity 4',
-             description:'',
+             description: '',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               }
             ]
           },
           {
             id: '5',
             name: 'Entity 5',
-             description:'',
+             description: '',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               },
               {
                 id: '2',
                 name: 'Att 2',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               },
               {
                 id: '3',
                 name: 'Att 3',
-                 description:'',
+                 description: '',
                 relationOut: [
                   {
                     stage: 'landing',
                     entityId: '2',
                     attributeId: '2'
                   }
-                ]
+                ],
+                display: false
               }
             ]
           },
           {
             id: '6',
             name: 'Entity 6',
-             description:'',
+             description: '',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
-                 description:'',
+                 description: '',
                 relationOut: []
               }
-            ]
+            ],
+            display: false
           }
         ]
       },
@@ -144,12 +153,12 @@ export class EntityService {
           {
             id: '7',
             name: 'Entity 7',
-             description:'',
+             description: '',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
-                 description:'',
+                 description: '',
                 relationOut: [
                   {
                     stage: 'staging',
@@ -211,31 +220,36 @@ export class EntityService {
                     entityId: '11',
                     attributeId: '2'
                   }
-                ]
+                ],
+                display: false
               },
               {
                 id: '2',
                 name: 'Att 2',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               },
               {
                 id: '3',
                 name: 'Att 3',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               },
               {
                 id: '4',
                 name: 'Att 4',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               },
               {
                 id: '5',
                 name: 'Att 5',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               }
             ]
           }
@@ -248,76 +262,83 @@ export class EntityService {
           {
             id: '8',
             name: 'Entity 8',
-             description:'',
+             description: '',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               },
               {
                 id: '2',
                 name: 'Att 2',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               }
             ]
           },
           {
             id: '9',
             name: 'Entity 9',
-             description:'',
+             description: '',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               }
             ]
           },
           {
             id: '10',
             name: 'Entity 10',
-             description:'',
+             description: '',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               },
               {
                 id: '2',
                 name: 'Att 2',
-                 description:'',
+                 description: '',
                 relationOut: [
                   {
                     stage: 'sor',
                     entityId: '7',
                     attributeId: '1'
                   }
-                ]
+                ],
+                display: false
               }
             ]
           },
           {
             id: '11',
             name: 'Entity 11',
-             description:'',
+             description: '',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               },
               {
                 id: '2',
                 name: 'Att 2',
-                 description:'',
-                relationOut: []
+                 description: '',
+                relationOut: [],
+                display: false
               }
             ]
           }
@@ -335,44 +356,44 @@ export class EntityService {
   }
 
   getEntity(): Observable<any> {
-    //return (this.stage);
+    // return (this.stage);
     return new Observable((observer) => {
 
       // observable execution
       this.getData().subscribe(res => {
-        debugger;
         let actualData: any;
         actualData = res;
-        let finalData = [];
+        const finalData = [];
         if (actualData != null) {
           actualData.forEach(element => {
-            // if (element.name.indexOf("entity") >= 0) {
+            // if (element.name.indexOf('entity') >= 0) {
             if (true) {
-              let stageName = "";
+              let stageName = '';
               let stageIndex = -1;
               let idx = 0;
               element.attributeList.forEach(element2 => {
-                if (element2.name.indexOf("stage") >= 0) {
-                  stageName = element2.name.substring(element2.name.indexOf("-") + 1);
+                if (element2.name.indexOf('stage') >= 0) {
+                  stageName = element2.name.substring(element2.name.indexOf('-') + 1);
                   stageIndex = idx;
                 }
                 idx = idx + 1;
               });
-              if (stageName == "") {
+              if (stageName === '') {
                 return;
               }
               element.attributeList.splice(stageIndex, 1);
-              let data = {
+              const data = {
                 id: element._id,
                 name: element.name,
-                description:element.description,
+                description: element.description,
                 stage: stageName,
                 attr: element.attributeList.map(r => {
-                  return { id: r._id, name: r.name,description:(JSON.parse(element.definition))[r.key].properties, relationIn: JSON.parse(element.definition), relationOut: [], key: r.key }
+                  return { id: r._id, name: r.name, description: (JSON.parse(element.definition))[r.key].properties,
+                    relationIn: JSON.parse(element.definition), relationOut: [], display: false, key: r.key };
                 })
 
 
-              }
+              };
               finalData.push(data);
             }
           });
@@ -385,8 +406,6 @@ export class EntityService {
 
 
       }, err => {
-        debugger;
-
         console.log(err);
         observer.complete();
       });
@@ -399,44 +418,42 @@ export class EntityService {
   }
 
   formatFinalData(finalData): any {
-    // debugger;
     finalData.forEach(element => {
       element.attr.forEach(element2 => {
         let isExists = false;
       //  debugger;
-        if(element2.description!=null && element2.description._description!=null){
-          element2.description=element2.description._description;
+        if (element2.description != null && element2.description._description != null) {
+          element2.description = element2.description._description;
+        } else {
+          element2.description = null;
         }
-        else{
-          element2.description=null;
-        }
-        for (var key in element2.relationIn) {
+        for (const key in element2.relationIn) {
           if (element2.relationIn.hasOwnProperty(key)) {
-            var element3 = element2.relationIn[key];
+            const element3 = element2.relationIn[key];
             // debugger;
             if (element3.properties != null && element3.properties.name != null) {
               // debugger;
-              if (element3.properties.name == element2.name && element3.properties.relatedSearchField != null) {
+              if (element3.properties.name === element2.name && element3.properties.relatedSearchField != null) {
                 isExists = true;
-                let data = {
+                const data = {
                   stage: element.stage,
                   entityId: element.id,
-                  attributeId: element2.id
-                }
+                  attributeId: element2.id,
+                };
                 let r = _.filter(finalData, rr => {
 
-                  return rr.id == element3.properties.relatedTo
+                  return rr.id === element3.properties.relatedTo;
 
                 });
                 if (r != null && r.length > 0) {
-                  data.entityId=r[0].id;
-                  data.stage=r[0].stage;
+                  data.entityId = r[0].id;
+                  data.stage = r[0].stage;
                   r = _.filter(r[0].attr, x => {
-                    return x.key == element3.properties.relatedSearchField
+                    return x.key === element3.properties.relatedSearchField;
                   });
 
                   if (r != null && r.length > 0) {
-                    data.attributeId=r[0].id;
+                    data.attributeId = r[0].id;
                     element2.relationOut.push(data);
                   }
 
@@ -458,31 +475,30 @@ export class EntityService {
     });
 
 
-    this.finalData = _.chain(this.finalData).groupBy("stage").map(function (v, i) {
+    this.finalData = _.chain(this.finalData).groupBy('stage').map(function (v, i) {
       return {
         stage: i,
         entity: _.map(v, x => {
-          return { id: x.id, name: x.name, attr: x.attr }
+          return { id: x.id, name: x.name, attr: x.attr };
 
         })
-
-      }
+      };
     }).value();
     // debugger;
-    let landing = _.filter(this.finalData, x => {
-      return x.stage == "landing";
+    const landing = _.filter(this.finalData, x => {
+      return x.stage === 'landing';
     })[0];
 
-    let staging = _.filter(this.finalData, x => {
-      return x.stage == "staging";
+    const staging = _.filter(this.finalData, x => {
+      return x.stage === 'staging';
     })[0];
 
-    let sor = _.filter(this.finalData, x => {
-      return x.stage == "sor";
+    const sor = _.filter(this.finalData, x => {
+      return x.stage === 'sor';
     })[0];
 
-    let mart = _.filter(this.finalData, x => {
-      return x.stage == "mart";
+    const mart = _.filter(this.finalData, x => {
+      return x.stage === 'mart';
     })[0];
 
     this.finalData = [];
@@ -497,13 +513,13 @@ export class EntityService {
 
   updatefinalData(entityId, attributeName, dataTOpushed) {
     // debugger;
-    let entity = _.filter(this.finalData, r => {
-      return r.id == entityId
+    const entity = _.filter(this.finalData, r => {
+      return r.id === entityId;
     });
 
     if (entity != null && entity.length > 0) {
-      let attribute = _.filter(entity[0].attr, r => {
-        return r.key == attributeName
+      const attribute = _.filter(entity[0].attr, r => {
+        return r.key === attributeName;
       });
 
       if (attribute != null && attribute.length > 0) {

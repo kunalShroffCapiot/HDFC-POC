@@ -20,10 +20,11 @@
               <div class="entity-header" fxLayoutAlign="center center">{{ entity.name }}</div>
               <div class="entity-content" fxLayout="column">
 
-
-                <div class="attribute" *ngFor="let attribute of entity.attr" (click)="renderEntity(stage.stage, entity, attribute.id)" style="cursor: pointer;">
+                <div class="attribute" *ngFor="let attribute of entity.attr" (click)="renderEntity(stage.stage, entity, attribute.id)" style="cursor: pointer;"
+                  [hidden]="!attribute.display">
                   <div id="attr_{{ entity.id + '_' + attribute.id}}" #attributes class="entity-caption">
                     {{ attribute.name }}
+                    <span class="attribute-count">{{ attribute.relationOut.length }}</span>
                   </div>
                 </div>
 
