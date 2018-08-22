@@ -199,7 +199,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
 
                     startDivX = element_from[0].nativeElement.offsetLeft - 10;
                     startDivY = element_from[0].nativeElement.offsetTop + 13;
-                    endDivX = element_to[0].nativeElement.offsetLeft + 140;
+                    endDivX = element_to[0].nativeElement.offsetLeft + 150;
                     endDivY = element_to[0].nativeElement.offsetTop + 13;
 
                     if (startDivY === endDivY) {
@@ -207,10 +207,10 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         `
                         <div class="svg-ele">
                     <svg height='100%' width='100%' style='position: absolute;'>
-                      <polygon points="` + endDivX + `,` + startDivY + ` ` + (endDivX + 15) +
-                        `,` + (startDivY - 7) + ` ` + (endDivX + 15) + `,` + (startDivY + 7) +
-                        `" style="fill:` + color + `;" />
-                      <line x1='` +
+                      <polygon points="` + (endDivX - 7) + `,` + startDivY + ` ` + (endDivX + 5) +
+                      `,` + (startDivY - 7) + ` ` + (endDivX + 5) + `,` + (startDivY + 7) +
+                      `" style="fill:` + color + `;" />
+                        <line x1='` +
                         startDivX +
                         `' y1='` +
                         startDivY +
@@ -221,7 +221,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         `' style='stroke:` +
                         color +
                         `;stroke-width:3' />
-                      <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
+                      <!--<circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />-->
                       </svg>
                       </div>
                   `;
@@ -230,10 +230,10 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         `
                         <div class="svg-ele">
                     <svg height='100%' width='100%' style='position: absolute;'>
-                      <polygon points="` + endDivX + `,` + endDivY + ` ` + (endDivX + 15) +
-                        `,` + (endDivY - 7) + ` ` + (endDivX + 15) + `,` + (endDivY + 7) +
-                        `" style="fill:` + color + `;" />
-                      <line x1='` +
+                      <polygon points="` + (endDivX - 7) + `,` + endDivY + ` ` + (endDivX + 5) +
+                      `,` + (endDivY - 7) + ` ` + (endDivX + 5) + `,` + (endDivY + 7) +
+                      `" style="fill:` + color + `;" />
+                        <line x1='` +
                         startDivX +
                         `' y1='` +
                         startDivY +
@@ -266,7 +266,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         `' style='stroke:` +
                         color +
                         `;stroke-width:3' />
-                      <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
+                      <!--<circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />-->
                     </svg>
                     </div>
                   `;
@@ -287,8 +287,8 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         `
                         <div class="svg-ele">
                         <svg height='100%' width='100%' style='position: absolute;'>
-                      <polygon points="` + (endDivX - 15) + `,` + (endDivY - 7) + ` ` + endDivX +
-                        `,` + endDivY + ` ` + (endDivX - 15) + `,` + (endDivY + 7) +
+                        <polygon points="` + (endDivX - 10) + `,` + (endDivY - 7) + ` ` + (endDivX + 2) +
+                        `,` + endDivY + ` ` + (endDivX - 10) + `,` + (endDivY + 7) +
                         `" style="fill:` + color + `;" />
                       <line x1='` +
                         startDivX +
@@ -301,7 +301,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         `' style='stroke:` +
                         color +
                         `;stroke-width:3' />
-                      <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
+                      <!--<circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />-->
                     </svg>
                     </div>
                   `;
@@ -310,10 +310,10 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         `
                         <div class="svg-ele">
                         <svg height='100%' width='100%' style='position: absolute;'>
-                      <polygon points="` + (endDivX - 15) + `,` + (endDivY - 7) + ` ` + endDivX +
-                        `,` + endDivY + ` ` + (endDivX - 15) + `,` + (endDivY + 7) +
+                        <polygon points="` + (endDivX - 10) + `,` + (endDivY - 7) + ` ` + (endDivX + 2) +
+                        `,` + endDivY + ` ` + (endDivX - 10) + `,` + (endDivY + 7) +
                         `" style="fill:` + color + `;" />
-                      <line x1='` +
+                            <line x1='` +
                         startDivX +
                         `' y1='` +
                         startDivY +
@@ -346,7 +346,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                         `' style='stroke:` +
                         color +
                         `;stroke-width:3' />
-                      <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
+                      <!--<circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />-->
                     </svg>
                     </div>
                   `;
@@ -426,7 +426,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
 
               startDivX = element_from[0].nativeElement.offsetLeft - 10;
               startDivY = element_from[0].nativeElement.offsetTop + 13;
-              endDivX = element_to[0].nativeElement.offsetLeft + 140;
+              endDivX = element_to[0].nativeElement.offsetLeft + 150;
               endDivY = element_to[0].nativeElement.offsetTop + 13;
 
               if (startDivY === endDivY) {
@@ -435,11 +435,10 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   `
                   <div class="svg-ele">
               <svg height='100%' width='100%' style='position: absolute;'>
-                <polygon points="` + endDivX + `,` + startDivY + ` ` + (endDivX + 15) +
-                  `,` + (startDivY - 7) + ` ` + (endDivX + 15) + `,` + (startDivY + 7) +
+                <polygon points="` + (endDivX - 7) + `,` + startDivY + ` ` + (endDivX + 5) +
+                  `,` + (startDivY - 7) + ` ` + (endDivX + 5) + `,` + (startDivY + 7) +
                   `" style="fill:` + color + `;" />
-
-              <line x1='` +
+                <line x1='` +
                   startDivX +
                   `' y1='` +
                   startDivY +
@@ -450,7 +449,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   `' style='stroke:` +
                   color +
                   `;stroke-width:3' />
-                <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
+                <!--<circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />-->
               </svg>
               </div>
             `;
@@ -460,8 +459,8 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   `
                   <div class="svg-ele">
               <svg height='100%' width='100%' style='position: absolute;'>
-                <polygon points="` + endDivX + `,` + endDivY + ` ` + (endDivX + 15) +
-                  `,` + (endDivY - 7) + ` ` + (endDivX + 15) + `,` + (endDivY + 7) +
+                <polygon points="` + (endDivX - 7) + `,` + endDivY + ` ` + (endDivX + 5) +
+                  `,` + (endDivY - 7) + ` ` + (endDivX + 5) + `,` + (endDivY + 7) +
                   `" style="fill:` + color + `;" />
                 <line x1='` +
                   startDivX +
@@ -496,7 +495,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   `' style='stroke:` +
                   color +
                   `;stroke-width:3' />
-                <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
+                <!--<circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />-->
               </svg>
               </div>
             `;
@@ -518,7 +517,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   `
                   <div class="svg-ele">
               <svg height='100%' width='100%' style='position: absolute;'>
-                <polygon points="` + (endDivX - 10) + `,` + (endDivY - 7) + ` ` + endDivX +
+                <polygon points="` + (endDivX - 10) + `,` + (endDivY - 7) + ` ` + (endDivX + 2) +
                   `,` + endDivY + ` ` + (endDivX - 10) + `,` + (endDivY + 7) +
                   `" style="fill:` + color + `;" />
                 <line x1='` +
@@ -532,7 +531,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   `' style='stroke:` +
                   color +
                   `;stroke-width:3' />
-                <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
+                <!--<circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />-->
               </svg>
               </div>
             `;
@@ -577,7 +576,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit {
                   `' style='stroke:` +
                   color +
                   `;stroke-width:3' />
-                <circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />
+                <!--<circle cx="` + startDivX + `" cy="` + (startDivY) + `" r="7" fill="` + color + `" />-->
               </svg>
               </div>
             `;

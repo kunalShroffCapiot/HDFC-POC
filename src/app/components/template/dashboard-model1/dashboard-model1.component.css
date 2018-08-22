@@ -22,6 +22,23 @@
 .stage-caption {
   font-size: 20px;
   padding: 1rem 0.25rem;
+  font-weight: bold;
+}
+
+.stage-landing {
+  color: #F5717C;
+}
+
+.stage-staging {
+  color: #77B3FF;
+}
+
+.stage-sor {
+  color: #FB9D46;
+}
+
+.stage-mart {
+  color: #78B847;
 }
 
 .landing > .entity > .entity-header {

@@ -8,7 +8,7 @@
 
       <div *ngFor="let stage of generateEntity" fxFlex="271px">
 
-        <div class="stage-caption" fxLayoutAlign="center start">
+        <div class="stage-caption stage-{{stage.stage}}" fxLayoutAlign="center start">
           {{stage.stage | uppercase}}
         </div>
 
