@@ -83,7 +83,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
 
   ngAfterContentInit() { }
 
-  generateEnt(ent: any, attributeId) {
+  generateEnt(ent: any) {
 
     this.wrapper_1.nativeElement.innerHTML = '';
 
@@ -102,9 +102,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
     this.generateEntity.forEach(s => {
       s.entity.forEach(e => {
         e.attr.forEach(a => {
-          if (a.id === attributeId) {
-            a.display = true;
-          }
+          a.display = true;
         });
       })
     });
@@ -115,7 +113,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
 
   renderEntity(stageName, entity, attributeId) {
 
-    this.generateEnt(entity, attributeId);
+    this.generateEnt(entity);
 
     if (
       entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut
