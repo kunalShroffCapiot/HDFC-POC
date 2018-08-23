@@ -20,6 +20,10 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
   attributes: ElementRef;
   @ViewChildren('entities')
   entities: ElementRef;
+  @ViewChildren('entitiesCcontent')
+  entitiesContent: ElementRef;
+
+  toggleEntityExpand: any;
 
   // entityData: Array<Entity> = new Array<Entity>();
   entitySub = new Subscription();
@@ -30,6 +34,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
   generateRelationFlag = false;
   initialEntity: any;
   initialAttribute: any;
+  selectedEntityId = 0;
 
   constructor(
     private elRef: ElementRef,
@@ -41,7 +46,6 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
   ngOnInit() {
 
     this.shared.track.subscribe(x => {
-      // debugger;
       this.wrapper_1.nativeElement.innerHTML = '';
       this.generateEntity = [];
       this.getData(x);
@@ -49,17 +53,35 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
     this.getData('Back');
 
     this.sideDrawerService.getSelectEntity().subscribe(selectedEntity => {
-      this.generateEnt(selectedEntity);
+
+      console.log(selectedEntity);
+
+      this.selectedEntityId = selectedEntity['id'];
+
+      const entity = _.findIndex(this.entitiesContent['_results'], x => {
+        return (x.nativeElement.id === 'entity_content_' + selectedEntity['id']);
+      });
+
+      if (entity !== -1) {
+        this.toggleEntityExpand = false;
+        if (selectedEntity['attr'].length <= 5) {
+          this.entitiesContent['_results'][entity].nativeElement.style.height = (selectedEntity['attr'].length * 40) + 'px';
+        } else {
+          this.entitiesContent['_results'][entity].nativeElement.style.height = '200px';
+        }
+      }
+
+      this.initialEntity = entity;
+      this.initialAttribute = null;
+      this.validateEntity(selectedEntity);
     });
   }
 
   ngAfterViewChecked() {
 
-    // console.log('hmm');
-
     if (this.initialEntity && this.initialAttribute) {
       this.wrapper_1.nativeElement.innerHTML = '';
-      this.generateRelation(this.initialEntity, this.initialAttribute);
+      this.createAttributeLink(this.initialEntity, this.initialAttribute);
     }
 
   }
@@ -67,13 +89,10 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
   getData(mode) {
     if (mode === 'Back') {
       this.entityService.getEntity().subscribe(res => {
-        //  debugger;
         this.generateEntity = res;
       }, err => {
         console.log('error has occurred' + err);
       });
-
-      // this.generateEntity = this.entityService.getEntity();
 
       this.dashboardService.getEntity();
     } else {
@@ -83,7 +102,24 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
 
   ngAfterContentInit() { }
 
-  generateEnt(ent: any) {
+  expandEntity(entityId) {
+    const entity = _.findIndex(this.entitiesContent['_results'], x => {
+      return (x.nativeElement.id === 'entity_content_' + entityId);
+    });
+
+    if (entity !== -1) {
+      if (this.entitiesContent['_results'][entity].nativeElement.style.height === 'auto') {
+        this.entitiesContent['_results'][entity].nativeElement.style.height = '200px';
+        this.toggleEntityExpand = false;
+      } else {
+        this.entitiesContent['_results'][entity].nativeElement.style.height = 'auto';
+        this.toggleEntityExpand = true;
+      }
+    }
+
+  }
+
+  validateEntity(ent: any) {
 
     this.wrapper_1.nativeElement.innerHTML = '';
 
@@ -91,68 +127,112 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
       x.nativeElement.hidden = true;
     });
 
-
     const index = _.findIndex(this.entities['_results'], x => {
       return x.nativeElement.id === 'entity_' + ent.id;
     });
 
     this.entities['_results'][index].nativeElement.hidden = false;
 
-
     this.generateEntity.forEach(s => {
       s.entity.forEach(e => {
         e.attr.forEach(a => {
-          a.display = true;
+          if (ent.id === e.id) {
+            a.display = true;
+          } else {
+            a.display = false;
+          }
         });
-      })
+      });
     });
-
-
 
   }
 
   renderEntity(stageName, entity, attributeId) {
 
-    this.generateEnt(entity);
-
     if (
       entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut
         .length > 0
     ) {
-      entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut.forEach(x => {
 
+      this.validateEntity(entity);
+
+      let stageInd = null;
+      let entityInd = null;
+
+      stageInd = this.generateEntity.findIndex(s => s.stage === stageName);
+
+      this.generateEntity.forEach(s => {
+        if (s.stage === stageName) {
+          entityInd = s.entity.findIndex(e => e.id === entity.id);
+        }
+      });
+
+      const attrInd = entity.attr.findIndex(x => x.id === attributeId);
+
+      this.generateEntity[stageInd].entity[entityInd].attr.unshift(
+        this.generateEntity[stageInd].entity[entityInd].attr.splice(attrInd, 1)[0]);
+
+        this.generateEntity[stageInd].entity.unshift(
+          this.generateEntity[stageInd].entity.splice(entityInd, 1)[0]);
+
+          entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut.forEach(x => {
         this.generateEntity.forEach(s => {
           s.entity.forEach(e => {
             if (x.entityId === e.id) {
-              e['attr'].forEach(a => {
-                if (a.id === x.attributeId) {
-                  a.display = true;
-                }
-              });
-              this.putEntity(s.stage, e, x.attributeId);
+              this.renderLoopEntity(s.stage, e, x.attributeId);
             }
           });
         });
       });
+
+      this.wrapper_1.nativeElement.style.height = (this.wrapper_2.nativeElement.offsetHeight + 100) + 'px';
+      this.wrapper_1.nativeElement.style.width = this.wrapper_2.nativeElement.offsetWidth + 'px';
+
+      this.initialEntity = entity;
+      this.initialAttribute = attributeId;
+
     }
-
-    this.wrapper_1.nativeElement.style.height = (this.wrapper_2.nativeElement.offsetHeight + 100) + 'px';
-    this.wrapper_1.nativeElement.style.width = this.wrapper_2.nativeElement.offsetWidth + 'px';
-
-    // console.log(this.generateEntity);
-
-    this.generateRelationFlag = true;
-    this.initialEntity = entity;
-    this.initialAttribute = attributeId;
 
   }
 
-  putEntity(stageName, entity, attrId) {
+  renderLoopEntity(stageName, entity, attrId) {
 
     const index = _.findIndex(this.entities['_results'], x => {
       return x.nativeElement.id === 'entity_' + entity.id;
     });
     this.entities['_results'][index].nativeElement.hidden = false;
+
+    this.generateEntity.forEach(s => {
+      s.entity.forEach(e => {
+        if (e.id === entity.id) {
+          e.attr.forEach(a => {
+            if (a.id === attrId) {
+              a.display = true;
+            }
+          });
+        }
+      });
+    });
+
+    const entityIndex = _.findIndex(this.entitiesContent['_results'], x => {
+      return (x.nativeElement.id === 'entity_content_' + entity['id']);
+    });
+
+    let counter = 0;
+    if (entity !== -1) {
+      entity.attr.forEach(x => {
+        if (x.display === true) {
+          counter++;
+        }
+      });
+
+      if (counter <= 5) {
+        this.entitiesContent['_results'][entityIndex].nativeElement.style.height = (counter * 50) + 'px';
+      } else {
+        this.entitiesContent['_results'][entityIndex].nativeElement.style.height = '200px';
+      }
+    }
+
 
     if (entity.attr[entity.attr.findIndex(x => x.id === attrId)].relationOut.length > 0) {
       entity.attr[
@@ -161,12 +241,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
         this.generateEntity.forEach(s => {
           s.entity.forEach(e => {
             if (x.entityId === e.id) {
-              e['attr'].forEach(a => {
-                if (a.id === x.attributeId) {
-                  a.display = true;
-                }
-              });
-              this.putEntity(s.stage, e, x.attributeId);
+              this.renderLoopEntity(s.stage, e, x.attributeId);
             }
           });
         });
@@ -174,9 +249,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
     }
   }
 
-  checkRelation(entityId, attributeId) {
-
-    // console.log(entityId);
+  createLoopAttributeLink(entityId, attributeId) {
 
     const EntityData = this.generateEntity;
 
@@ -393,7 +466,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
 
                   }
 
-                  this.checkRelation(rel.entityId, rel.attributeId);
+                  this.createLoopAttributeLink(rel.entityId, rel.attributeId);
 
                 }
 
@@ -408,7 +481,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
 
   }
 
-  generateRelation(entity, attributeId) {
+  createAttributeLink(entity, attributeId) {
 
     const EntityData = this.generateEntity;
 
@@ -623,7 +696,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
 
             }
 
-            this.checkRelation(rel.entityId, rel.attributeId);
+            this.createLoopAttributeLink(rel.entityId, rel.attributeId);
 
           }
 
@@ -634,17 +707,6 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
     });
 
     this.generateRelationFlag = false;
-  }
-  showDescriptionv;
-  showDescription() {
-    //debugger;
-    this.showDescriptionv = true;
-
-  }
-
-  hideDescription() {
-    this.showDescriptionv = false;
-
   }
 
 }

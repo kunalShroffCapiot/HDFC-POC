@@ -17,29 +17,31 @@
           <div [ngClass]="stage.stage">
 
             <div *ngFor="let entity of stage.entity" class="entity" id="entity_{{ entity.id }}" #entities hidden>
-              <div class="entity-header" (mouseenter)="showDescription()" (mouseleave)="hideDescription()" fxLayoutAlign="center center">{{ entity.name }}
-              <!-- <div class="description" *ngIf="showDescriptionv==true">
+              <div class="entity-header"
+                fxLayoutAlign="center center"
+                [matTooltip]="entity.description"
+                matTooltipPosition="after"
+              >{{ entity.name | slice:0:10 }}</div>
+              <div class="entity-content" fxLayout="column" id="entity_content_{{ entity.id }}" #entitiesCcontent>
 
-               {{entity.description}}
-
-                </div> -->
-             </div> 
-                  <div class="entity-content" fxLayout="column">
-
-                    <div class="attribute" *ngFor="let attribute of entity.attr" (click)="renderEntity(stage.stage, entity, attribute.id)" style="cursor: pointer;"
-                      [hidden]="!attribute.display">
-                      <div id="attr_{{ entity.id + '_' + attribute.id}}" #attributes class="entity-caption">
-                        {{ attribute.name }}
-                        <span class="attribute-count">{{ attribute.relationOut.length }}</span>
-                      </div>
-                    </div>
-
+                <div class="attribute" *ngFor="let attribute of entity.attr" (click)="renderEntity(stage.stage, entity, attribute.id)" style="cursor: pointer;"
+                  [hidden]="!attribute.display">
+                  <div id="attr_{{ entity.id + '_' + attribute.id}}"
+                    #attributes
+                    class="entity-caption"
+                    [matTooltip]="attribute.description"
+                    matTooltipPosition="after"
+                  >
+                    {{ attribute.name | slice:0:10 }}
+                    <span class="attribute-count">{{ attribute.relationOut.length }}</span>
                   </div>
-
                 </div>
 
               </div>
-
+              <div class="entity-footer" fxLayoutAlign="end center" *ngIf="(selectedEntityId == entity.id && entity.attr.length > 5)" (click)="expandEntity(entity.id)">
+                  <ng-container *ngIf="!toggleEntityExpand">{{ entity.attr.length - 5 }} More...</ng-container>
+                  <ng-container *ngIf="toggleEntityExpand">Show Less...</ng-container>
+                </div>
             </div>
 
           </div>
@@ -47,5 +49,9 @@
         </div>
 
       </div>
+
+    </div>
+
+  </div>
 
 </section>

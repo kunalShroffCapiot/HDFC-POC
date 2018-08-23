@@ -84,8 +84,14 @@
 
 .entity-content {
   padding: 0.5rem;
-  max-height: 230px;
-  overflow-y: scroll;
+  height: 0px;
+  overflow: hidden;
+}
+
+.entity-footer {
+  font-size: 12px;
+  padding: 0.5rem;
+  cursor: pointer;
 }
 
 .entity-caption {
