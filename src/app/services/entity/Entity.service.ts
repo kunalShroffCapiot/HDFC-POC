@@ -20,12 +20,12 @@ export class EntityService {
           {
             id: '1',
             name: 'Entity 1',
-            description: '',
+            description: 'Entity 1 for testing, please check the  description.',
             attr: [
               {
                 id: '1',
                 name: 'Att 1',
-                 description: '',
+                 description: 'Att 1',
                 relationOut: [],
                 display: false
               }
