@@ -79,6 +79,7 @@
   color: white;
   height: 36.7px;
   font-weight: bold;
+ 
 }
 
 .entity-content {
@@ -117,3 +118,5 @@
 .svg-ele:hover {
   z-index: 1;
 }
+
+

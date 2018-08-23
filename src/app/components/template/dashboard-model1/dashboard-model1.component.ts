@@ -55,7 +55,7 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
 
   ngAfterViewChecked() {
 
-    console.log('hmm');
+    // console.log('hmm');
 
     if (this.initialEntity && this.initialAttribute) {
       this.wrapper_1.nativeElement.innerHTML = '';
@@ -634,6 +634,17 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
     });
 
     this.generateRelationFlag = false;
+  }
+  showDescriptionv;
+  showDescription() {
+    //debugger;
+    this.showDescriptionv = true;
+
+  }
+
+  hideDescription() {
+    this.showDescriptionv = false;
+
   }
 
 }

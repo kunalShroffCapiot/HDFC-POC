@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SideDrawerService } from '../../../services/common/sideDrawer/SideDrawer.service';
 import { EntityService } from '../../../services/entity/Entity.service';
 import { sharedData } from '../../../services/shared/sharedData';
+import { ViewChild } from "@angular/core";
+import { ViewChildren } from "@angular/core";
 
 @Component({
   selector: 'app-side-drawer',
@@ -10,7 +12,9 @@ import { sharedData } from '../../../services/shared/sharedData';
 })
 export class SideDrawerComponent implements OnInit {
   stage: any;
-
+  content;
+  contentStage;
+  @ViewChildren('filterControl') filterControl;
   constructor(private sideDrawerService: SideDrawerService, private entityService: EntityService, private shared: sharedData) { }
 
   ngOnInit() {
@@ -40,6 +44,17 @@ export class SideDrawerComponent implements OnInit {
     if (id.srcElement.checked === true) {
       this.sideDrawerService.selectEntity(entity);
     }
+  }
+
+  filter(event, stage) {
+    //debugger;
+    this.filterControl._results.forEach(element => {
+      if (element.nativeElement.id != stage) {
+        element.nativeElement.value = "";
+      }
+    });
+    this.content = event;
+    this.contentStage = stage;
   }
 
 }

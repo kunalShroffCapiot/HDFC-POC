@@ -17,7 +17,7 @@
 
       <div class="entity-search" fxLayoutAlign="start center">
 
-        <input fxFlex type="text" placeHolder="&#61442; Search by name..." />
+        <input fxFlex type="text" id="{{stage.stage}}" #filterControl placeHolder="&#61442; Search by name..." (input)="filter($event.target.value,stage.stage)" />
 
       </div>
 
@@ -25,7 +25,7 @@
 
         <div fxFlex class="entity">
 
-          <div *ngFor="let entity of stage.entity" class="entity-list" fxLayoutAlign="center">
+          <div *ngFor="let entity of stage.entity | filterContent: content:stage:stage.stage:contentStage" class="entity-list" fxLayoutAlign="center">
 
             <div class="entity-caption" fxLayoutAlign="start center">
               <input type="checkbox" style="width: 15px;" [value]="entity.id" (click)="selectEntity($event, entity)" /> {{ entity.name }}

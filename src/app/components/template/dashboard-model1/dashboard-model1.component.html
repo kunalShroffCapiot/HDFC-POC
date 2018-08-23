@@ -17,15 +17,25 @@
           <div [ngClass]="stage.stage">
 
             <div *ngFor="let entity of stage.entity" class="entity" id="entity_{{ entity.id }}" #entities hidden>
-              <div class="entity-header" fxLayoutAlign="center center">{{ entity.name }}</div>
-              <div class="entity-content" fxLayout="column">
+              <div class="entity-header" (mouseenter)="showDescription()" (mouseleave)="hideDescription()" fxLayoutAlign="center center">{{ entity.name }}
+              <!-- <div class="description" *ngIf="showDescriptionv==true">
 
-                <div class="attribute" *ngFor="let attribute of entity.attr" (click)="renderEntity(stage.stage, entity, attribute.id)" style="cursor: pointer;"
-                  [hidden]="!attribute.display">
-                  <div id="attr_{{ entity.id + '_' + attribute.id}}" #attributes class="entity-caption">
-                    {{ attribute.name }}
-                    <span class="attribute-count">{{ attribute.relationOut.length }}</span>
+               {{entity.description}}
+
+                </div> -->
+             </div> 
+                  <div class="entity-content" fxLayout="column">
+
+                    <div class="attribute" *ngFor="let attribute of entity.attr" (click)="renderEntity(stage.stage, entity, attribute.id)" style="cursor: pointer;"
+                      [hidden]="!attribute.display">
+                      <div id="attr_{{ entity.id + '_' + attribute.id}}" #attributes class="entity-caption">
+                        {{ attribute.name }}
+                        <span class="attribute-count">{{ attribute.relationOut.length }}</span>
+                      </div>
+                    </div>
+
                   </div>
+
                 </div>
 
               </div>
@@ -37,9 +47,5 @@
         </div>
 
       </div>
-
-    </div>
-
-  </div>
 
 </section>
