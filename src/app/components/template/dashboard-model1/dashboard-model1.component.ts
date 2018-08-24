@@ -54,8 +54,6 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
 
     this.sideDrawerService.getSelectEntity().subscribe(selectedEntity => {
 
-      console.log(selectedEntity);
-
       this.selectedEntityId = selectedEntity['id'];
 
       const entity = _.findIndex(this.entitiesContent['_results'], x => {
@@ -172,10 +170,10 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
       this.generateEntity[stageInd].entity[entityInd].attr.unshift(
         this.generateEntity[stageInd].entity[entityInd].attr.splice(attrInd, 1)[0]);
 
-        this.generateEntity[stageInd].entity.unshift(
-          this.generateEntity[stageInd].entity.splice(entityInd, 1)[0]);
+      this.generateEntity[stageInd].entity.unshift(
+        this.generateEntity[stageInd].entity.splice(entityInd, 1)[0]);
 
-          entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut.forEach(x => {
+      entity.attr[entity.attr.findIndex(x => x.id === attributeId)].relationOut.forEach(x => {
         this.generateEntity.forEach(s => {
           s.entity.forEach(e => {
             if (x.entityId === e.id) {
@@ -248,6 +246,44 @@ export class DashboardModel1Component implements OnInit, AfterContentInit, After
       });
     }
   }
+
+  /*
+  createLinearSvgLink(color, polygon, line) {
+    if (polygon && line) {
+      this.wrapper_1.nativeElement.innerHTML +=
+        `<div class="svg-ele">
+            <svg height='100%' width='100%' style='position: absolute;'>
+              <polygon points="` + polygon.x1 + `,` + polygon.y1 + ` ` + polygon.x2 +
+        `,` + polygon.y2 + ` ` + polygon.x3 + `,` + polygon.y3 +
+        `" style="fill:` + color + `;" />
+              <line x1='` + line.x1 + `' y1='` + line.y1 + `' x2='` + line.x2 + `' y2='` + line.y2 + `' style='stroke:` +
+        color + `;stroke-width:3' />
+            </svg>
+          </div>`;
+    }
+  }
+
+  createStepSvgLink(color, polygon, line1, line2, line3) {
+    if (polygon && line1 && line2 && line3) {
+      this.wrapper_1.nativeElement.innerHTML +=
+      `<div class="svg-ele">
+      <svg height='100%' width='100%' style='position: absolute;'>
+        <polygon points="` + polygon.x1 + `,` + polygon.y1 + ` ` + polygon.x2 +
+      `,` + polygon.y2 + ` ` + polygon.x3 + `,` + polygon.y3 +
+      `" style="fill:` + color + `;" />
+        <line x1='` + line1.x1 + `' y1='` + line1.y1 + `' x2='` + line1.x2 + `' y2='` + line1.y2 + `' style='stroke:` +
+      color + `;stroke-width:3' />
+        <line x1='` + line2.x1 + `' y1='` + line2.y1 + `' x2='` + line2.x2 + `' y2='` + line2.y2 + `' style='stroke:` +
+      color + `;stroke-width:3' />
+        <line x1='` + line3.x1 + `' y1='` + line3.y1 + `' x2='` + line3.x2 + `' y2='` + line3.y2 + `' style='stroke:` +
+      color + `;stroke-width:3' />
+      </svg>
+    </div>`;
+    }
+  }
+  // <!--<circle cx="` + circle.startDivX + `" cy="` + circle.startDivY + `" r="7" fill="` + color + `" />-->
+
+*/
 
   createLoopAttributeLink(entityId, attributeId) {
 

@@ -8,9 +8,6 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard } from './guard/Auth.guard';
 import { AntiAuthGuard } from './guard/AntiAuth.guard';
 
-import { NgxGraphModule } from '@swimlane/ngx-graph';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-
 import { MaterialModule } from './modules/MaterialModule/material.module';
 import { RoutingModule } from './modules/RouterModule/router.module';
 import { CustomInterceptor } from './modules/InterceptorModule/CustomInterceptor.module';
