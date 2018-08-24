@@ -29,7 +29,7 @@ import { DashboardNewComponent } from './components/template/dashboard-new/dashb
 import { EntityService } from './services/entity/Entity.service';
 import { DashboardModel1Component } from './components/template/dashboard-model1/dashboard-model1.component';
 import {sharedData} from './services/shared/sharedData';
-
+import {filterContent} from './pipes/filterContent';
 export function tokenGetter() {
   return localStorage.getItem('ba-rToken');
 }
@@ -45,7 +45,8 @@ export function tokenGetter() {
     SideDrawerComponent,
     LoginComponent,
     DashboardNewComponent,
-    DashboardModel1Component
+    DashboardModel1Component,
+    filterContent
   ],
   imports: [
     BrowserModule,

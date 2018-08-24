@@ -381,6 +381,7 @@ export class EntityService {
               if (stageName === '') {
                 return;
               }
+             // debugger;
               element.attributeList.splice(stageIndex, 1);
               const data = {
                 id: element._id,
@@ -479,7 +480,7 @@ export class EntityService {
       return {
         stage: i,
         entity: _.map(v, x => {
-          return { id: x.id, name: x.name, attr: x.attr };
+          return { id: x.id, name: x.name, attr: x.attr,description:x.description };
 
         })
       };
