@@ -4,7 +4,7 @@
 }
 
 .stages {
-  height: 175px;
+  height: 153px;
   font-weight: bold;
 }
 
@@ -16,11 +16,11 @@
 }
 
 .entity-search {
-  padding: 0.5rem 0 ;
+  padding: 0 ;
 }
 
 .entity-content {
-  height: 55px;
+  height: 75px;
   overflow-y: scroll;
 }
 
@@ -41,6 +41,7 @@
 
 .entity-list {
   padding-bottom: 0.25rem;
+  font-size: 12px;
 }
 
 .entity-count {
@@ -54,20 +55,10 @@
 
 .landing, .staging, .sor, .mart {
   padding: 0rem 1rem 0 1rem;
+  color: black;
 }
 
-.landing > .entity-header {
-  background: #F5717C;
-}
-
-.staging > .entity-header {
-  background: #77B3FF;
-}
-
-.sor > .entity-header {
-  background: #FB9D46;
-}
-
-.mart > .entity-header {
-  background: #78B847;
+.entity-header {
+  background: #f6f6f6;
+  color: black;
 }

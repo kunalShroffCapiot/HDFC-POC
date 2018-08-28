@@ -13,6 +13,7 @@ body {
 
 input {
   padding: 0.25rem;
+  border: white 1px solid;
 }
 
 input::-webkit-input-placeholder {

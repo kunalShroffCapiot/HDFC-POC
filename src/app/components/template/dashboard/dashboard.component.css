@@ -1,30 +1,40 @@
 .body {
-  padding: 1rem;
+  padding: 0rem 1rem;
 }
 
-.landing > .entity > .entity-header {
-  background: #F5717C;
+.wrapper-1 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  background-size: 250px;
 }
 
-.staging > .entity > .entity-header {
-  background: #77B3FF;
+.wrapper-2 {
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 0;
+  z-index: 2;
 }
 
-.sor > .entity > .entity-header {
-  background: #FB9D46;
+.stage {
+  color: darkgray;
 }
 
-.mart > .entity > .entity-header {
-  background: #78B847;
+.stage-caption {
+  font-size: 20px;
+  padding: 1rem 0.25rem;
+  font-weight: bold;
 }
 
 .entity {
-  border-radius: 10px;
+  border-radius: 3px;
   background: white;
-  width: 126.12px;
+  width: 150px;
   min-height: 100px;
   box-shadow: 0 0 6px darkgray;
-  margin-left: -3rem;
 }
 
 .entity:not(:first-child) {
@@ -32,22 +42,51 @@
 }
 
 .entity-header {
-  border-radius: 10px 10px 0 0;
-  background: #F5717C;
+  border-radius: 3px 3px 0 0;
+  background: #696969;
   color: white;
   height: 36.7px;
   font-weight: bold;
+
+}
+
+.entity-header-active {
+  border-radius: 3px 3px 0 0;
+  background: #FB9D46;
+  color: white;
+  height: 36.7px;
+  font-weight: bold;
+
 }
 
 .entity-content {
-
   padding: 0.5rem;
+  height: 0px;
+  overflow: hidden;
+  color: black;
+}
 
+.entity-footer {
+  font-size: 12px;
+  padding: 0.5rem;
+  cursor: pointer;
 }
 
 .entity-caption {
   font-size: 14px;
   padding: 0.25rem;
+}
+
+.attribute-caption {
+  color: black;
+  padding: 0.25rem
+}
+
+.attribute-caption-active {
+  border-radius: 10px;
+  background: #FB9D46;
+  color: white;
+  padding: 0.25rem
 }
 
 .attribute:not(:first-child) {
@@ -58,58 +97,22 @@
   padding-bottom: 1rem;
 }
 
-.line {
-  padding: 0 !important;
-  position: relative;
+.attribute-count {
+  border: 1px solid #E4E4E4;
+  width: 30px;
+  height: 18px;
+  border-radius: 10px;
+  text-align: center;
+  float:right;
+  margin-top: -0.05rem;
 }
 
-.line-hor {
-  width: 3rem;
-  height: 5px;
+.svg-ele {
+  position: absolute;
 }
 
-.align-line {
-  margin-top: -1rem;
+.svg-ele:hover {
+  z-index: 1;
 }
-
-.line-hor-left {
-  margin-left: -3.5rem;
-}
-
-.line-hor-right {
-  margin-left: 7.5rem;
-}
-
-.line-ver {
-  margin-left: 3rem;
-  margin-top: 54px;
-}
-
-.line-ver-ele {
-  width: 5px;
-  height: 490px;
-}
-
-
-
-
-
-.chart__content{
-  background: white;
-}
-
-.chart__line{
-  fill: none;
-  stroke: red;
-  stroke-width: 2px;
-}
-
-.chart__circle{
-  fill: #fff;
-}
-
-
-
-
 
 

@@ -51,7 +51,10 @@ export class LoginService {
   }
 
   logout() {
+    localStorage.removeItem('ba-user');
+    localStorage.removeItem('ba-token');
     localStorage.removeItem('ba-rToken');
+    localStorage.removeItem('ba-domains');
     this.router.navigate(['login']);
   }
 

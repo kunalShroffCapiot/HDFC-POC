@@ -2,17 +2,18 @@
   <div>
     HDFC DATA LINEAGE
   </div>
-  <div *ngIf="loginService.loggedIn" style="margin:10%"><button (click)="changeMode('Back')" *ngIf="showMode=='Demo'" class="mat-raised-button mat-primary">Back</button>
-    <button (click)="changeMode('Demo')" *ngIf="showMode=='Back'"  class="mat-raised-button mat-primary">Demo</button>
+  <div *ngIf="loginService.loggedIn" style="margin:10%">
+    <button (click)="changeMode('Back')" *ngIf="showMode=='Demo'" class="mat-raised-button mat-primary">Back</button>
+    <button (click)="changeMode('Demo')" *ngIf="showMode=='Back'" class="mat-raised-button mat-primary">Demo</button>
   </div>
   <div class="header-menu" fxFlex fxLayout fxLayoutAlign="flex-end">
     <app-header-menu></app-header-menu>
   </div>
   <div>
-      <button mat-icon-button (click)="onSideMenuToggle()" *ngIf="loginService.loggedIn">
-        <div class="menu-icon">
-          <img src="./assets/menu.svg" width="15" height="12" [class]="(menuSvg) ? 'toggle-left' : 'toggle-right'" />
-        </div>
-      </button>
-    </div>
-  </mat-toolbar>
+    <button mat-icon-button (click)="onSideMenuToggle()" *ngIf="loginService.loggedIn">
+      <div class="menu-icon">
+        <img src="./assets/menu.svg" width="15" height="12" [class]="(menuSvg) ? 'toggle-left' : 'toggle-right'" />
+      </div>
+    </button>
+  </div>
+</mat-toolbar>

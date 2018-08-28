@@ -1,6 +1,6 @@
 <ul fxFlex fxLayout >
   <li>
-    <a mat-button routerLink="/dashboard" routerLinkActive="menu-active" *ngIf="loginService.loggedIn">
+    <a mat-button routerLink="/dashboard" routerLinkActive="menu-active" *ngIf="loginService.loggedIn" [matMenuTriggerFor]="accountMenu">
       <div fxLayout="row" class="user-details" fxLayoutAlign="">
         <div fxLayoutAlign="center center">
           <mat-icon><img src="./assets/user-pic.svg" /></mat-icon>
@@ -10,5 +10,8 @@
           </div>
       </div>
     </a>
+    <mat-menu #accountMenu="matMenu">
+      <button mat-menu-item (click)="loginService.logout()">Logout</button>
+    </mat-menu>
   </li>
 </ul>

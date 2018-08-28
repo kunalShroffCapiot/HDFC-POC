@@ -25,9 +25,7 @@ import { LoginService } from './services/user/login/Login.service';
 import { DashboardService } from './services/user/dashboard/Dashboard.service';
 import { GlobalErrorHandler } from './services/common/errorHandler/GlobalErrorHandler.service';
 import { SideDrawerService } from './services/common/sideDrawer/SideDrawer.service';
-import { DashboardNewComponent } from './components/template/dashboard-new/dashboard-new.component';
 import { EntityService } from './services/entity/Entity.service';
-import { DashboardModel1Component } from './components/template/dashboard-model1/dashboard-model1.component';
 import {sharedData} from './services/shared/sharedData';
 import {filterContent} from './pipes/filterContent';
 export function tokenGetter() {
@@ -44,8 +42,6 @@ export function tokenGetter() {
     HeaderMenuComponent,
     SideDrawerComponent,
     LoginComponent,
-    DashboardNewComponent,
-    DashboardModel1Component,
     filterContent
   ],
   imports: [

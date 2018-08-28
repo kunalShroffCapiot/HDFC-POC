@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { SideDrawerService } from '../../../services/common/sideDrawer/SideDrawer.service';
 import { EntityService } from '../../../services/entity/Entity.service';
 import { sharedData } from '../../../services/shared/sharedData';
 import { ViewChild } from "@angular/core";
 import { ViewChildren } from "@angular/core";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-side-drawer',
@@ -14,7 +15,10 @@ export class SideDrawerComponent implements OnInit {
   stage: any;
   content;
   contentStage;
+  selectedEntityId = 0;
   @ViewChildren('filterControl') filterControl;
+  @ViewChildren('entity_input') entity_input: ElementRef;
+
   constructor(private sideDrawerService: SideDrawerService, private entityService: EntityService, private shared: sharedData) { }
 
   ngOnInit() {
@@ -41,6 +45,15 @@ export class SideDrawerComponent implements OnInit {
 
   }
   selectEntity(id, entity) {
+    if (entity.id !== this.selectedEntityId) {
+      this.entity_input['_results'].forEach( x => {
+        if (x.nativeElement.id === 'chkEntity_' + this.selectedEntityId) {
+          x.nativeElement.checked = false;
+        }
+      });
+      this.selectedEntityId = entity.id;
+    }
+
     if (id.srcElement.checked === true) {
       this.sideDrawerService.selectEntity(entity);
     }
